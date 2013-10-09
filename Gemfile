@@ -22,6 +22,8 @@ end
 
 group :development do
   gem 'debugger'
+  gem 'pry-rails'
+  gem 'better_errors'
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -1,3 +1,43 @@
-%h1 Streaming#index
-%p Find me in app/views/streaming/index.html.haml
-= @slide
+%h1 
+  
+  = title(@slide) 
+  %meta{id: "slide_info", |
+    "data-prefix" => @slide[:image_info][:prefix], |
+    "data-suffix" => @slide[:image_info][:suffix], |
+    "data-totalpage" => @slide[:image_info][:total_slides]}
+
+.slide
+  .main_player
+    .header.primary_color
+      #fullscreen_btn
+    #player_container.player{style: 'position: relative'}
+      %img#current_slide{src: first_page(@slide)}
+    .footer.primary_color
+      .controls
+        .prev.control_btn
+        .next.control_btn
+      .player_progress_container
+        .player_progress
+
+= stylesheet_link_tag "slide"
+= javascript_include_tag "streaming"
+    
+:javascript
+  (function($) {
+    var slideInfo = $("#slide_info");
+    var slideImagePrefix = slideInfo.data("prefix");
+    var slideImageSuffix = slideInfo.data("suffix");
+    var slideImageNum = slideInfo.data("totalpage");
+
+    player = new SlidePlayer(slideImagePrefix, slideImageSuffix, slideImageNum);
+    player.preload();
+
+    $(".next").on("click", function (e) { 
+      player.next(); 
+    })
+
+    $(".prev").on("click", function (e) { 
+      player.prev(); 
+    })
+
+  })(jQuery); 
