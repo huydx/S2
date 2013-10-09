@@ -12,11 +12,16 @@ gem "haml", ">= 3.1.6"
 gem "haml-rails", ">= 0.3.4", :group => :development
 gem 'slideshare', git: 'git://github.com/huydx/slideshare.git'
 gem 'mysql2'
+gem 'sextant'
+gem 'dotenv-rails'
 
 group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem 'debugger'
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
