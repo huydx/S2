@@ -14,6 +14,7 @@ gem 'slideshare', git: 'git://github.com/huydx/slideshare.git'
 gem 'mysql2'
 gem 'sextant'
 gem 'dotenv-rails'
+gem 'anjlab-bootstrap-rails', '~> 3.0.0.3', :require => 'bootstrap-rails'
 
 group :doc do
   gem 'sdoc', require: false
