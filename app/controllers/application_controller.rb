@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for resource
     user_path resource
   end
+
+  def after_sign_out_path_for resource
+    root_path
+  end
+
   private
   def error_404
     respond_to do |format|
