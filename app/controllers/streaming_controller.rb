@@ -3,7 +3,7 @@ class StreamingController < ApplicationController
 
   def index
     slide_id = params[:id]
-    slide = @api_instance.slideshows.find(slide_id, detailed: true) 
+    @slide = @api_instance.slideshows.find(slide_id, detailed: true) 
   end
 
   def set_up_api
