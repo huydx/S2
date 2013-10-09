@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/huydx/slideshare.git
-  revision: 4ec24aa6d3e09bfd147c3e41e6d1e4260fcf1637
+  revision: 31614af3967556a8f8064e62dda7007ba76a7436
   specs:
     slideshare (0.1.2.7)
       curb (>= 0.1.4)
