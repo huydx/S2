@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/huydx/slideshare.git
-  revision: 31614af3967556a8f8064e62dda7007ba76a7436
+  revision: 520f1b2d3bafcd1138e72f6f5f8680d2983d9a89
   specs:
     slideshare (0.1.2.7)
       curb (>= 0.1.4)
@@ -38,7 +38,11 @@ GEM
       sass (>= 3.2)
     arel (4.0.0)
     atomic (1.1.14)
+    better_errors (1.0.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
     builder (3.1.4)
+    coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -48,7 +52,7 @@ GEM
     coffee-script-source (1.6.3)
     columnize (0.3.6)
     curb (0.8.5)
-    debugger (1.6.1)
+    debugger (1.6.2)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
       debugger-ruby_core_source (~> 1.2.3)
@@ -82,12 +86,19 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.2)
     mime-types (1.25)
     minitest (4.7.5)
     multi_json (1.8.1)
     multi_xml (0.5.5)
     mysql2 (0.3.13)
     polyglot (0.3.3)
+    pry (0.9.12.2)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -118,6 +129,7 @@ GEM
       rdoc (~> 3.10)
     sextant (0.2.4)
       rails (>= 3.2)
+    slop (3.4.6)
     sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -150,6 +162,7 @@ PLATFORMS
 
 DEPENDENCIES
   anjlab-bootstrap-rails (~> 3.0.0.3)
+  better_errors
   coffee-rails (~> 4.0.0)
   debugger
   dotenv-rails
@@ -158,6 +171,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   mysql2
+  pry-rails
   rails (= 4.0.0)
   sass-rails (~> 4.0.0)
   sdoc
