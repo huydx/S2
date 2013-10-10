@@ -3,7 +3,7 @@ class SlidePlayer
 
   constructor: (@slidePrefix, @slideSuffix, @totalPage) ->
     @currentPage = 1
-    @progress = $(".player-progress")
+    @progress = $(".player_progress")
     @images_loaded = (false for i in [0..@totalPage])
 
   loadImage: (index) ->
