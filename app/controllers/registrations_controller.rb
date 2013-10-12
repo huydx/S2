@@ -25,7 +25,6 @@ class RegistrationsController < Devise::RegistrationsController
       end
      end
    rescue
-     build_resource(sign_up_params)
      clean_up_passwords resource
      render action: :new
    end
