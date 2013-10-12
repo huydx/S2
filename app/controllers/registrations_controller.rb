@@ -6,11 +6,10 @@ class RegistrationsController < Devise::RegistrationsController
   def create
    build_resource(sign_up_params)
    begin
-     SlideShare::Base.new(
+     slide_share = SlideShare::Base.new(
        api_key: ENV['API_KEY'],
-       shared_secret: ENV['SHARED_SECRET']
-     ).leads.find_campaigns_by_user("#{sign_up_params["username"]}",
-       "#{sign_up_params["password"]}")
+       shared_secret: ENV['SHARED_SECRET'])
+     slide_share.leads.find_campaigns_by_user("#{sign_up_params["username"]}","#{sign_up_params["password"]}")
      if resource.save!
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
