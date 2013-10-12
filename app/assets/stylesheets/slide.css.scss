@@ -7,6 +7,7 @@ $width: 708px;
 }
 
 .main_player {
+  margin-bottom: 200px;
   width:  $width;
   float: left;
   margin-right: 50px;
@@ -72,3 +73,24 @@ $width: 708px;
   @include background-image-gradient(#38ad75, #0e6355);
 }
 
+.slide_controller {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 100px;
+  background-color: #ff5050;
+  opacity: 0.4;
+
+  .slide_control_panel {
+    margin: 5px 200px 5px 200px;
+    height: 80px;
+    background-color: #ffffff;
+    text-align: center;
+    
+    .control_button {
+      display: inline-block;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}

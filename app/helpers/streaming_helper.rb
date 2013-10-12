@@ -18,4 +18,23 @@ module StreamingHelper
   def prefix(slide)
     slide[:image_info][:prefix]
   end
+
+  def event_server_url
+    #temporally fixed
+    user_name = "dxhuy88"
+    "#{ENV["EVENT_SERVER"]}faye"
+  end
+
+  def event_server_js_file
+    "#{ENV["EVENT_SERVER"]}faye.js"
+  end
+
+  def current_user_name 
+    #temporally fixed
+    "dxhuy88"
+  end
+
+  def channel
+    "dxhuy88"
+  end
 end

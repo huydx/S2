@@ -1,27 +1,43 @@
 %h1 
-  
   = title(@slide) 
   %meta{id: "slide_info", |
     "data-prefix" => prefix(@slide), |
     "data-suffix" => suffix(@slide), |
     "data-totalpage" => pages(@slide)}
 
-.slide
-  .main_player
-    .header.primary_color
-      #fullscreen_btn
-    #player_container.player
-      %img#current_slide{src: first_page(@slide)}
-    .footer.primary_color
-      .controls
-        .prev.control_btn
-        .next.control_btn
-      .player_progress_container
-        .player_progress{style: "width: #{100 / pages(@slide)}%;"}
+  %meta{id: "streaming_info", |
+    "data-eventserver" => event_server_url, |
+    "data-hostname" => current_user_name, |
+    "data-channel" => channel}
+
+.main_player
+  .header.primary_color
+    #fullscreen_btn
+  #player_container.player
+    %img#current_slide{src: first_page(@slide)}
+  .footer.primary_color
+    .controls
+      .prev.control_btn
+      .next.control_btn
+    .player_progress_container
+      .player_progress{style: "width: #{100 / pages(@slide)}%;"}
+        
+.slide_controller
+  .slide_control_panel
+    .slide_streaming.control_button
+      %a.streaming_button{href: "#"}
+        %img{src: image_path("streaming.png"), width: "50px", height: "50px"}
+    .slide_drawing.control_button
+      %a.streaming_button{href: "#"}
+        %img{src: image_path("pen.png"), width: "50px", height: "50px"}
+    .slide_clear.control_button
+      %a.clear_button{href: "#"}
+        %img{src: image_path("eraser.png"), width: "50px", height: "50px"}
 
 = stylesheet_link_tag "slide"
 = javascript_include_tag "streaming"
-    
+= javascript_include_tag event_server_js_file
+
 :javascript
   (function($) {
     $(document).ready(function() {
@@ -32,13 +48,33 @@
 
       player = new SlidePlayer(slideImagePrefix, slideImageSuffix, slideImageNum);
       player.preload();
+      
+      var streaming_info = $("#streaming_info");
+      var event_server_url = streaming_info.data("eventserver");
+      var streaming_host = streaming_info.data("hostname");
+      var channel = streaming_info.data("channel");
+
+      window.publisher = false;
 
       $(".next").on("click", function (e) { 
-        player.next(); 
-      })
+        player.next();
+        if (window.publisher) {
+          window.publisher.move(streaming_host, player.currentPage);
+        }
+        e.preventDefault();
+      });
 
       $(".prev").on("click", function (e) { 
-        player.prev(); 
-      })
+        player.prev();
+        if (window.publisher) {
+          window.publisher.move(streaming_host, player.currentPage);
+        }
+        e.preventDefault();
+      });
+
+      $(".streaming_button").on("click", function(e) {
+        window.publisher = new MovePublisher(event_server_url, streaming_host);
+        e.preventDefault();
+      });
     });
   })(jQuery); 

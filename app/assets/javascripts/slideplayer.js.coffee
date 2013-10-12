@@ -15,6 +15,9 @@ class SlidePlayer
       image.onload = ->
         that.images_loaded[index] = true
       image.src = "http://#{@slidePrefix}#{index}#{@slideSuffix}"
+  
+  currentPage: ->
+    @currentPage
 
   preload: ->
     for i in [1..PRELOAD_IMAGE_COUNT]
