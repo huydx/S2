@@ -1,5 +1,5 @@
 S2::Application.routes.draw do
-  root "home#index"
+  root "top#index"
 
   devise_for :users, controllers: {registrations: "registrations"}
 
@@ -10,4 +10,5 @@ S2::Application.routes.draw do
   end 
 
   resources :users, only: [:show]
+  resources :home, only: [:index]
 end

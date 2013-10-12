@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from SlideShare::ServiceError, with: :error_404
 
   def after_sign_in_path_for resource
-    user_path resource
+    home_index_path
   end
 
   def after_sign_out_path_for resource
