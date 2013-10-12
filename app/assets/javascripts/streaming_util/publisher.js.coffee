@@ -7,7 +7,7 @@ class Publisher
   broadcast: (message) ->
     @faye.publish(@channel, message)
 
-  stop: () ->
+  stop: ->
     @subscription.cancel()
 
 window.Publisher = Publisher
