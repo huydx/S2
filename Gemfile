@@ -15,6 +15,7 @@ gem 'sextant'
 gem 'dotenv-rails'
 gem 'anjlab-bootstrap-rails', '~> 3.0.0.3', :require => 'bootstrap-rails'
 gem "devise"
+gem "redis"
 
 group :doc do
   gem 'sdoc', require: false

@@ -3,7 +3,8 @@
   %meta{id: "slide_info", |
     "data-prefix" => prefix(@slide), |
     "data-suffix" => suffix(@slide), |
-    "data-totalpage" => pages(@slide)}
+    "data-totalpage" => pages(@slide), |
+    "data-id" => slide_id(@slide)}
 
   %meta{id: "streaming_info", |
     "data-eventserver" => event_server_url, |
@@ -45,6 +46,7 @@
       var slideImagePrefix = slideInfo.data("prefix");
       var slideImageSuffix = slideInfo.data("suffix");
       var slideImageNum = slideInfo.data("totalpage");
+      var slideId = slideInfo.data("id");
 
       player = new SlidePlayer(slideImagePrefix, slideImageSuffix, slideImageNum);
       player.preload();
@@ -74,6 +76,9 @@
 
       $(".streaming_button").on("click", function(e) {
         window.publisher = new MovePublisher(event_server_url, streaming_host);
+        window.publisher.register(slideId, function() {
+          console.log("registered ok");
+        });
         e.preventDefault();
       });
     });

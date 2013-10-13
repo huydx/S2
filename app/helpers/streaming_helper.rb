@@ -3,6 +3,10 @@ module StreamingHelper
     raw(slide[:info]["Slideshow"]["Title"])
   end
   
+  def slide_id(slide)
+    slide[:info]["Slideshow"]["ID"]
+  end
+
   def first_page(slide)
     "http://#{slide[:image_info][:prefix]}1#{slide[:image_info][:suffix]}"
   end
@@ -20,8 +24,6 @@ module StreamingHelper
   end
 
   def event_server_url
-    #temporally fixed
-    user_name = "dxhuy88"
     "#{ENV["EVENT_SERVER"]}faye"
   end
 
@@ -30,11 +32,10 @@ module StreamingHelper
   end
 
   def current_user_name 
-    #temporally fixed
-    "dxhuy88"
+    current_user.username
   end
 
   def channel
-    "dxhuy88"
+    current_user_name
   end
 end
