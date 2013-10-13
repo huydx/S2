@@ -1,7 +1,7 @@
 $ ->
   class MovePublisher extends Publisher
-    constructor: (event_server_url, channel) ->
-      super(event_server_url, channel)
+    constructor: (channel) ->
+      super(channel)
 
     makeMessagePayload: (userName, pageNum) ->
       payload =
