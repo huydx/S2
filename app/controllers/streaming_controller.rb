@@ -1,7 +1,7 @@
 class StreamingController < ApplicationController
   before_action :set_up_api
-  before_action :require_user, except: [:register_channel, :search]
-  protect_from_forgery except: [:register_channel]
+  before_action :require_user, except: [:register_channel, :search, :remove_channel]
+  protect_from_forgery except: [:register_channel, :remove_channel]
   
   def index
     slide_id = params[:id]
@@ -12,10 +12,13 @@ class StreamingController < ApplicationController
     channel = params[:channel] 
     message_content = 'params error' and message_type = 'error' unless channel
     
-    channel_info = [eval($redis.get(channel))]
+    channel_info = eval($redis.get(channel)) rescue nil
     message_content = 'channel not found' and message_type = 'error' unless channel_info
     
-    return_hash = channel_info.nil? ? {message_type: message_type, message_content: message_content} : channel_info
+    return_hash = channel_info.nil? ? 
+      {message_type: message_type, message_content: message_content} : 
+      {message_type: "sucess", message_content: [channel_info]}
+
     respond_to do |format|
       format.json { render json: return_hash.to_json }
     end
@@ -36,8 +39,9 @@ class StreamingController < ApplicationController
   def remove_channel
     channel = params[:channel]
     render nothing: true, status: 500 and return unless channel
-  
+
     $redis.del channel
+    render nothing: true, status: 200
   end
 
   private
@@ -64,6 +68,7 @@ class StreamingController < ApplicationController
       totalSlides: image_info[:total_slides],
       slideImageBaseurl: image_info[:prefix],
       slideImageBaseurlSuffix: image_info[:suffix],
+      username: general_info["Username"]
     }.to_s
 
   end

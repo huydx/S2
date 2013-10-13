@@ -1,5 +1,5 @@
 class Publisher
-  constructor: (event_server_url, channel) ->
+  constructor: (channel) ->
     @faye = window.fayeClient
     @channel = channel
     @subscription = @faye.subscribe channel, (message) ->

@@ -15,7 +15,9 @@
   .header.primary_color
     #fullscreen_btn
   #player_container.player
-    %img#current_slide{src: first_page(@slide)}
+    .drawable_wrapper
+      %img#current_slide{src: first_page(@slide)}
+      %canvas#drawing_canvas.covering_canvas
   .footer.primary_color
     .controls
       .prev.control_btn
@@ -29,7 +31,7 @@
       %a.streaming_button{href: "#"}
         %img{src: image_path("streaming.png"), width: "50px", height: "50px"}
     .slide_drawing.control_button
-      %a.streaming_button{href: "#"}
+      %a.drawing_button{href: "#"}
         %img{src: image_path("pen.png"), width: "50px", height: "50px"}
     .slide_clear.control_button
       %a.clear_button{href: "#"}
@@ -56,7 +58,6 @@
       var event_server_url = streaming_info.data("eventserver");
       var streaming_host = streaming_info.data("hostname");
       var channel = streaming_info.data("channel");
-      console.log(channel)
 
       window.publisher = false;
 
@@ -78,13 +79,19 @@
 
       $(".streaming_button").on("click", function(e) {
         window.fayeClient = new Faye.Client(event_server_url);
-        window.publisher = new MovePublisher(event_server_url, channel);
+        window.publisher = new MovePublisher(channel);
         window.publisher.register(slideId, function() {
           console.log("registered ok");
         });
 
-        window.receiver = new QuestionReceiver(event_server_url, channel);
+        window.receiver = new QuestionReceiver(channel);
         e.preventDefault();
+      });
+
+      $(".drawing_button").on("click", function(e) {
+        window.drawer = new Drawer("#drawing_canvas", streaming_host, channel);  
+        window.drawer.binding();
+        e.preventDefault(); 
       });
     });
   })(jQuery); 
