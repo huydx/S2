@@ -9,12 +9,16 @@ class StreamingController < ApplicationController
 
   def search
     channel = params[:channel] 
-    message_content = 'params error' && message_type = 'error' unless channel
+    message_content = 'params error' and message_type = 'error' unless channel
     
     channel_info = $redis.get(channel)
+    message_content = 'channel not found' and message_type = 'error' unless channel_info
+    
+    return_hash = channel_info.nil? ? {message_type: message_type, message_content: message_content} : channel_info
+
     respond_to do |format|
-      format.html { render json: channel_info }
-      format.json { render json: channel_info }
+      format.html { render json: return_hash }
+      format.json { render json: return_hash }
     end
   end
 
@@ -43,6 +47,7 @@ class StreamingController < ApplicationController
     general_info = slide_info[:info]["Slideshow"]
     image_info = slide_info[:image_info]
     
+    {    
       channel: channel,
       slideId: general_info["ID"],
       title: general_info["Title"],
