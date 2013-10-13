@@ -1,4 +1,13 @@
+body{
+  background-color: #FFFAFA;
+}
+
 .navbar{
-  background-color: #F3F3F3;
+  background-color: #444444;
   border-bottom: 1px solid #EEE;
+
+  li, a{
+    color: #CCCCCC;
+    line-height: 48px;
+  }
 }

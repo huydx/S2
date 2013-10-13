@@ -1,5 +1,21 @@
 .slide-box {
   position: relative;
+  display: inline-block;
+  width: 210px;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  .img-wrapper{
+    margin: 0 auto;
+    text-align: center;
+    width: 170px;
+    height: 128px;
+
+    img{
+      width: 170px;
+      height: 128px;
+    }
+  }
 
   a {
     position: absolute;
@@ -14,11 +30,12 @@
     filter: alpha(opacity = 1);
   }
 
-  h3 {
-    margin-top: 0;
-  }
-
   .title {
     border-bottom: 1px solid #E3E3E3;
+     width: 170px;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     -o-text-overflow: ellipsis
   }
 }
