@@ -23,7 +23,7 @@ class StreamingController < ApplicationController
       format.json { render json: return_hash.to_json }
     end
   end
-  
+ 
   def register_channel
     channel = params[:channel]
     slide_id = params[:slide_id]
