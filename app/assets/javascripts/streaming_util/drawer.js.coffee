@@ -31,17 +31,24 @@ class Drawer
       
       that.draw(x,y,type)
   
-  makeMessagePayload: (queue) ->
-    payload =
-      messageType: 'draw'
-      messageOwner: '' #temporally
-      messageExtra:
-        pointSet:
-          "#{queue[0].x} #{queue[0].y} \
-           #{queue[1].x} #{queue[1].y} \
-           #{queue[2].x} #{queue[2].y} \
-           #{queue[3].x} #{queue[3].y}"
-           
+  makeMessagePayload: (type) ->
+    if type is "dragging"
+      queue = @drawQueue
+      payload =
+        messageType: 'draw'
+        messageOwner: '' #temporally
+        messageExtra:
+          status: type
+          pointSet:
+            "#{queue[0].x} #{queue[0].y} #{queue[1].x} #{queue[1].y} #{queue[2].x} #{queue[2].y} #{queue[3].x} #{queue[3].y}"
+    
+    if type is "end_dragging"
+      payload =
+        messageType: 'draw'
+        messageOwner: '' #temporally
+        messageExtra:
+          status: type
+
     return payload
 
   publish: (message) ->
@@ -54,11 +61,11 @@ class Drawer
     else if type is "drag"
       if @drawQueueTicker < 4
         @drawQueue.push
-          x: x / @canvasWidth
-          y: y / @canvasHeight
+          y: x / @canvasWidth
+          x: 1 - y / @canvasHeight
         @drawQueueTicker += 1
       else
-        message = @makeMessagePayload(@drawQueue)
+        message = @makeMessagePayload("dragging")
         @publish(message)
 
         #reset ticker and queue
@@ -69,6 +76,8 @@ class Drawer
       @canvasCtx.lineTo(x, y)
       @canvasCtx.stroke()
     else
+      message = @makeMessagePayload("end_dragging")
+      @publish(message)
       @canvasCtx.closePath()
 
 window.Drawer = Drawer
