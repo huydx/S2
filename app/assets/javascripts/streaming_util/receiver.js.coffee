@@ -1,5 +1,5 @@
 class Receiver
-  constructor: (event_server_url, channel) ->
+  constructor: (channel) ->
     @faye = window.fayeClient
     @channel = channel
 
@@ -9,8 +9,8 @@ class Receiver
     @subscription.cancel()
 
 class QuestionReceiver extends Receiver
-    constructor: (event_server_url, channel) ->
-      super(event_server_url, channel)
+    constructor: (channel) ->
+      super(channel)
       @subscription = @faye.subscribe channel, (message) =>
         @messageCallback(message)
 
