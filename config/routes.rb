@@ -1,7 +1,7 @@
 S2::Application.routes.draw do
   root "top#index"
 
-  devise_for :users, controllers: {registrations: "registrations"}
+  devise_for :users, controllers: {sessions: "sessions"}
 
   controller :streaming do
     get "streaming/search" => :search
