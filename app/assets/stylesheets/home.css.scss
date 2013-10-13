@@ -1,4 +1,4 @@
-.slide-list {
+.slide-box {
   position: relative;
 
   a {
@@ -12,5 +12,13 @@
     background-color: #FFF;
     opacity: 0;
     filter: alpha(opacity = 1);
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+
+  .title {
+    border-bottom: 1px solid #E3E3E3;
   }
 }
