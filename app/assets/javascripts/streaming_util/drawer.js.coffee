@@ -37,14 +37,11 @@ class Drawer
       messageOwner: '' #temporally
       messageExtra:
         pointSet:
-          p1:
-            queue[0]
-          p2:
-            queue[1]
-          p3:
-            queue[2]
-          p4:
-            queue[3]
+          "#{queue[0].x} #{queue[0].y} \
+           #{queue[1].x} #{queue[1].y} \
+           #{queue[2].x} #{queue[2].y} \
+           #{queue[3].x} #{queue[3].y}"
+           
     return payload
 
   publish: (message) ->
@@ -66,7 +63,7 @@ class Drawer
 
         #reset ticker and queue
         @drawQueueTicker = 0
-        @drawQueue = []
+        @drawQueue = @drawQueue.slice 3
 
 
       @canvasCtx.lineTo(x, y)

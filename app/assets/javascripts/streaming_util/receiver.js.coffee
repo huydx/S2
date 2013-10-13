@@ -10,10 +10,9 @@ class Receiver
 
 class QuestionReceiver extends Receiver
     constructor: (event_server_url, channel) ->
-      self = this
       super(event_server_url, channel)
-      @subscription = @faye.subscribe channel, (message) ->
-        self.messageCallback(message)
+      @subscription = @faye.subscribe channel, (message) =>
+        @messageCallback(message)
 
     messageCallback: (message) ->
       super(message)

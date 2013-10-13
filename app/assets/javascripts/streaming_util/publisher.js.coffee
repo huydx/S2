@@ -11,7 +11,6 @@ class Publisher
     @subscription.cancel()
 
   register: (slide_id, callback) ->
-    console.log(@channel)
     $.post "/streaming/register",
       channel: @channel
       slide_id: slide_id
