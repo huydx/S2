@@ -10,4 +10,11 @@ class Publisher
   stop: ->
     @subscription.cancel()
 
+  register: (slide_id, callback) ->
+    $.post "/streaming/register",
+      channel: @channel
+      slide_id: slide_id
+      (data) ->
+        callback()
+
 window.Publisher = Publisher
