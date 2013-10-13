@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class SessionsController < Devise::SessionsController
   def new
     super
