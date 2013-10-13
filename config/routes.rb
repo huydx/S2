@@ -4,9 +4,10 @@ S2::Application.routes.draw do
   devise_for :users, controllers: {registrations: "registrations"}
 
   controller :streaming do
+    get "streaming/search" => :search
     get "streaming/:id" => :index, as: :index
-    get "streaming/search/:channel" => :search
     post "streaming/register" => :register_channel
+    post "streaming/remove" => :remove_channel
   end 
 
   resources :users, only: [:show]

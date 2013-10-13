@@ -1,6 +1,6 @@
 class Publisher
   constructor: (event_server_url, channel) ->
-    @faye = new Faye.Client(event_server_url)
+    @faye = window.fayeClient
     @channel = channel
     @subscription = @faye.subscribe channel, (message) ->
   
@@ -11,6 +11,7 @@ class Publisher
     @subscription.cancel()
 
   register: (slide_id, callback) ->
+    console.log(@channel)
     $.post "/streaming/register",
       channel: @channel
       slide_id: slide_id

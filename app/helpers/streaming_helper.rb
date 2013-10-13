@@ -36,6 +36,6 @@ module StreamingHelper
   end
 
   def channel
-    current_user_name
+    "/#{current_user_name}"
   end
 end

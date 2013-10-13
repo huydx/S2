@@ -36,6 +36,7 @@
         %img{src: image_path("eraser.png"), width: "50px", height: "50px"}
 
 = stylesheet_link_tag "slide"
+= stylesheet_link_tag "jquery.gritter"
 = javascript_include_tag "streaming"
 = javascript_include_tag event_server_js_file
 
@@ -55,6 +56,7 @@
       var event_server_url = streaming_info.data("eventserver");
       var streaming_host = streaming_info.data("hostname");
       var channel = streaming_info.data("channel");
+      console.log(channel)
 
       window.publisher = false;
 
@@ -75,10 +77,13 @@
       });
 
       $(".streaming_button").on("click", function(e) {
-        window.publisher = new MovePublisher(event_server_url, streaming_host);
+        window.fayeClient = new Faye.Client(event_server_url);
+        window.publisher = new MovePublisher(event_server_url, channel);
         window.publisher.register(slideId, function() {
           console.log("registered ok");
         });
+
+        window.receiver = new QuestionReceiver(event_server_url, channel);
         e.preventDefault();
       });
     });
