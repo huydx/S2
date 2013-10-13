@@ -2,7 +2,6 @@
   - @slides.each do |slide|
     .row.well.slide-box
       %a(href="/streaming/#{slide["ID"]}")
-      .col-md-2
+      %p.title= slide["Title"]
+      .img-wrapper
         =image_tag "#{slide["ThumbnailURL"]}"
-      .col-md-10
-        %h3.title= slide["Title"]
