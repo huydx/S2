@@ -1,4 +1,13 @@
+body{
+  background-color: #FFFAFA;
+}
+
 .navbar{
-  background-color: #F3F3F3;
+  background-color: rgb(68, 68, 68);
   border-bottom: 1px solid #EEE;
+
+  li, a{
+    color: #CCC;
+    line-height: 48px;
+  }
 }
