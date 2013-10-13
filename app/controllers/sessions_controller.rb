@@ -10,7 +10,7 @@ class SessionsController < Devise::SessionsController
         shared_secret: ENV['SHARED_SECRET'])
       slide_share.leads.find_campaigns_by_user params[:user][:username], params[:user][:password]
 
-      if User.where(username: params[:user][:username]).first
+      if User.find_by username: params[:user][:username]
         self.resource = warden.authenticate!(auth_options)
         set_flash_message(:notice, :signed_in) if is_navigational_format?
 
