@@ -56,13 +56,19 @@ class SlidePlayer
 
   prev: () ->
     @gotoPage(@currentPage - 1)
-    if (window.publisher)
-      window.publisher.move("", @currentPage)
+    window.publisher.move("", @currentPage) if window.publisher
+    if window.drawer
+      window.drawer.saveState(@currentPage+1)
+      window.drawer.clear()
+      window.drawer.restoreState(@currentPage)
 
   next: () ->
     @gotoPage(@currentPage + 1)
-    if (window.publisher)
-      window.publisher.move("", @currentPage)
+    window.publisher.move("", @currentPage) if window.publisher
+    if window.drawer
+      window.drawer.saveState(@currentPage-1)
+      window.drawer.clear()
+      window.drawer.restoreState(@currentPage)
 
   fullScreen: (element_name) ->
     element = $(element_name)[0]
@@ -93,7 +99,7 @@ class StreamingController
     @clear_button = $(clear_button_name)
     @controllerElem.animate {
         bottom: "-100"
-      }, 1000
+      }, 500
 
   binding: ->
     @controllerDispButton.on "click", (e) =>
@@ -107,10 +113,10 @@ class StreamingController
       @statusDisplay = !@statusDisplay
       @controllerElem.animate {
         bottom: controllerTranslation
-      }, 1000
+      }, 500
       @controllerDispButton.animate {
         bottom: dispButtonTranslation
-      }, 1000
+      }, 500
       e.preventDefault()
 
     @streaming_button.on "click", (e) =>

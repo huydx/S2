@@ -1,5 +1,5 @@
 class Drawer
-  constructor: (element_name, user_name, channel) ->
+  constructor: (element_name, user_name, channel, slide_page_num) ->
     @canvas_element_name = element_name
     @faye = window.fayeClient
     @channel = channel
@@ -17,7 +17,8 @@ class Drawer
     @canvasCtx.strokeStyle = "#ECD018"
     @canvasCtx.lineWidth = 2
     @canvasCtx.lineCap = "round"
-
+    
+    @canvasStateStack = new Array(slide_page_num)
     @drawQueueTicker = 0
     @drawQueue = []
   
@@ -85,5 +86,14 @@ class Drawer
     @canvas.width = @canvas.width
     message = @makeMessagePayload("end_drawing")
     @publish(message)
+
+  saveState: (pageNum) ->
+    img = new Image()
+    img.src = @canvas.toDataURL()
+    @canvasStateStack[pageNum-1] = img
+  
+  restoreState: (pageNum) ->
+    img = @canvasStateStack[pageNum-1]
+    @canvasCtx.drawImage(img, 0, 0) if img
 
 window.Drawer = Drawer
