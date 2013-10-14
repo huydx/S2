@@ -3,7 +3,7 @@ class SlidePlayer
 
   constructor: (@slidePrefix, @slideSuffix, @totalPage) ->
     @currentPage = 1
-    @progress = $(".player_progress")
+    @$progress = $(".player_progress")
     @images_loaded = (false for i in [0..@totalPage])
     $(".next").on "click", (e) =>
       @next()
@@ -43,7 +43,7 @@ class SlidePlayer
     if index >= 1 and index <= @totalPage
       if @images_loaded[index]
         percent = Math.round(index  * 100 / @totalPage)
-        @progress.css("width", "#{percent}%")
+        @$progress.css("width", "#{percent}%")
         @currentPage = index
         $("#current_slide").attr("src", "http://#{@slidePrefix}#{index}#{@slideSuffix}")
         for i in [1..index + PRELOAD_IMAGE_COUNT]
@@ -84,7 +84,7 @@ class StreamingController
     @statusDisplay = false
     @controllerElem = $(".slide_controller")
     @controllerDispButton = $("#slide_controller_display")
-    @loading = $("#loading")
+    @$loading = $("#loading")
 
     slideInfo = $("#slide_info")
     @slideId = slideInfo.data("id")
@@ -120,11 +120,11 @@ class StreamingController
       e.preventDefault()
 
     @streaming_button.on "click", (e) =>
-      @loading.show()
+      @$loading.show()
       window.fayeClient = new Faye.Client(@event_server_url)
       window.publisher = new MovePublisher(@channel)
       window.publisher.register @slideId, () =>
-        @loading.hide()
+        @$loading.hide()
 
       window.receiver = new QuestionReceiver(@channel)
       e.preventDefault()
