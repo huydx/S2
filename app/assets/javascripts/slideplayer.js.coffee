@@ -3,8 +3,24 @@ class SlidePlayer
 
   constructor: (@slidePrefix, @slideSuffix, @totalPage) ->
     @currentPage = 1
-    @progress = $(".player_progress")
+    @$progress = $(".player_progress")
     @images_loaded = (false for i in [0..@totalPage])
+    $(".next").on "click", (e) =>
+      @next()
+      e.preventDefault()
+
+    $(".prev").on "click", (e) =>
+      @prev()
+      e.preventDefault()
+
+    $("#fullscreen_btn").on "click", (e) =>
+      @fullScreen("#player_container")
+
+    $(document).keydown (e) =>
+      if e.keyCode is 37 #left
+        @prev()
+      else if e.keyCode is 39 #right
+        @next()
 
   loadImage: (index) ->
     if index > @totalPage
@@ -27,7 +43,7 @@ class SlidePlayer
     if index >= 1 and index <= @totalPage
       if @images_loaded[index]
         percent = Math.round(index  * 100 / @totalPage)
-        @progress.css("width", "#{percent}%")
+        @$progress.css("width", "#{percent}%")
         @currentPage = index
         $("#current_slide").attr("src", "http://#{@slidePrefix}#{index}#{@slideSuffix}")
         for i in [1..index + PRELOAD_IMAGE_COUNT]
@@ -40,8 +56,87 @@ class SlidePlayer
 
   prev: () ->
     @gotoPage(@currentPage - 1)
+    window.publisher.move("", @currentPage) if window.publisher
+    if window.drawer
+      window.drawer.saveState(@currentPage+1)
+      window.drawer.clear()
+      window.drawer.restoreState(@currentPage)
 
   next: () ->
     @gotoPage(@currentPage + 1)
+    window.publisher.move("", @currentPage) if window.publisher
+    if window.drawer
+      window.drawer.saveState(@currentPage-1)
+      window.drawer.clear()
+      window.drawer.restoreState(@currentPage)
 
+  fullScreen: (element_name) ->
+    element = $(element_name)[0]
+    if element.requestFullScreen
+      element.requestFullScreen()
+    else if element.mozRequestFullScreen
+      element.mozRequestFullScreen()
+    else if element.webkitRequestFullScreen
+      element.webkitRequestFullScreen()
+
+class StreamingController
+  constructor: (streaming_button_name, drawing_button_name, clear_button_name) ->
+    @statusDisplay = false
+    @$controllerElem = $(".slide_controller")
+    @$controllerDispButton = $("#slide_controller_display")
+    @$loading = $("#loading")
+
+    slideInfo = $("#slide_info")
+    @slideId = slideInfo.data("id")
+
+    streaming_info = $("#streaming_info")
+    @event_server_url = streaming_info.data("eventserver")
+    @streaming_host = streaming_info.data("hostname")
+    @channel = streaming_info.data("channel")
+
+    @streaming_button = $(streaming_button_name)
+    @drawing_button = $(drawing_button_name)
+    @clear_button = $(clear_button_name)
+    @$controllerElem.animate {
+        bottom: "-100"
+      }, 500
+
+  binding: ->
+    @$controllerDispButton.on "click", (e) =>
+      if (@statusDisplay)
+        controllerTranslation = "-100"
+        dispButtonTranslation = "0"
+      else
+        controllerTranslation = "0"
+        dispButtonTranslation = "+100"
+      
+      @statusDisplay = !@statusDisplay
+      @$controllerElem.animate {
+        bottom: controllerTranslation
+      }, 500
+      @$controllerDispButton.animate {
+        bottom: dispButtonTranslation
+      }, 500
+      e.preventDefault()
+
+    @streaming_button.on "click", (e) =>
+      @$loading.show()
+      window.fayeClient = new Faye.Client(@event_server_url)
+      window.publisher = new MovePublisher(@channel)
+      window.publisher.register @slideId, () =>
+        @$loading.hide()
+
+      window.receiver = new QuestionReceiver(@channel)
+      e.preventDefault()
+
+    @drawing_button.on "click", (e) =>
+      window.drawer = new Drawer("#drawing_canvas", @streaming_host, @channel)
+      window.drawer.binding()
+      e.preventDefault()
+
+    @clear_button.on "click", (e) =>
+      window.drawer.clear() if window.drawer
+      e.preventDefault()
+
+window.StreamingController = StreamingController
 window.SlidePlayer = SlidePlayer

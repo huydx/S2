@@ -1,16 +1,15 @@
 @import "mixins";
 
-$width: 708px;
+$width: 900px;
 
 #player_container {
   position: relative;
+  margin: auto auto auto auto;
 }
 
 .main_player {
-  margin-bottom: 200px;
   width:  $width;
-  float: left;
-  margin-right: 50px;
+  margin: auto auto auto auto;
 }
 
 .main_player .primary_color {
@@ -69,7 +68,7 @@ $width: 708px;
 .player_progress_container {
   float: left;
   height: 10px;
-  width: 600px;
+  width: 800px;
   @include border-radius(10px);
   margin: 12px 0px;
   background: #000000;
@@ -91,6 +90,7 @@ $width: 708px;
   width: 100%;
   height: 100px;
   background-color: #ff5050;
+  z-index: 101;
   opacity: 0.4;
 
   .slide_control_panel {
@@ -105,4 +105,23 @@ $width: 708px;
       padding-right: 10px;
     }
   }
+}
+
+#slide_controller_display {
+  opacity: 0.4;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  width: 80px;
+  height: 80px;
+  background-color: #ff4747;
+  z-index: 101;
+}
+
+#loading {
+  display: none;
+  z-index: 1000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
 }
