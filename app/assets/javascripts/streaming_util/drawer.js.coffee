@@ -1,5 +1,5 @@
 class Drawer
-  constructor: (element_name, user_name, channel) ->
+  constructor: (element_name, user_name, channel, slide_page_num) ->
     @canvas_element_name = element_name
     @faye = window.fayeClient
     @channel = channel
@@ -11,12 +11,14 @@ class Drawer
     @canvasWidth = $(element_name)[0].width = slide_width
     @canvasHeight = $(element_name)[0].height = slide_height
     
-    @canvasCtx = $(element_name)[0].getContext("2d")
+    @canvas = $(element_name)[0]
+    @canvasCtx = @canvas.getContext("2d")
     @canvasCtx.fillStyle = "solid"
     @canvasCtx.strokeStyle = "#ECD018"
     @canvasCtx.lineWidth = 2
     @canvasCtx.lineCap = "round"
-
+    
+    @canvasStateStack = new Array(slide_page_num)
     @drawQueueTicker = 0
     @drawQueue = []
   
@@ -42,7 +44,7 @@ class Drawer
           pointSet:
             "#{queue[0].x} #{queue[0].y} #{queue[1].x} #{queue[1].y} #{queue[2].x} #{queue[2].y} #{queue[3].x} #{queue[3].y}"
     
-    if type is "end_dragging"
+    if type is "end_dragging" || type is "end_drawing"
       payload =
         messageType: 'draw'
         messageOwner: '' #temporally
@@ -79,5 +81,19 @@ class Drawer
       message = @makeMessagePayload("end_dragging")
       @publish(message)
       @canvasCtx.closePath()
+  
+  clear: ->
+    @canvas.width = @canvas.width
+    message = @makeMessagePayload("end_drawing")
+    @publish(message)
+
+  saveState: (pageNum) ->
+    img = new Image()
+    img.src = @canvas.toDataURL()
+    @canvasStateStack[pageNum-1] = img
+  
+  restoreState: (pageNum) ->
+    img = @canvasStateStack[pageNum-1]
+    @canvasCtx.drawImage(img, 0, 0) if img
 
 window.Drawer = Drawer
