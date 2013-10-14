@@ -11,7 +11,8 @@ class Drawer
     @canvasWidth = $(element_name)[0].width = slide_width
     @canvasHeight = $(element_name)[0].height = slide_height
     
-    @canvasCtx = $(element_name)[0].getContext("2d")
+    @canvas = $(element_name)[0]
+    @canvasCtx = @canvas.getContext("2d")
     @canvasCtx.fillStyle = "solid"
     @canvasCtx.strokeStyle = "#ECD018"
     @canvasCtx.lineWidth = 2
@@ -42,7 +43,7 @@ class Drawer
           pointSet:
             "#{queue[0].x} #{queue[0].y} #{queue[1].x} #{queue[1].y} #{queue[2].x} #{queue[2].y} #{queue[3].x} #{queue[3].y}"
     
-    if type is "end_dragging"
+    if type is "end_dragging" || type is "end_drawing"
       payload =
         messageType: 'draw'
         messageOwner: '' #temporally
@@ -79,5 +80,10 @@ class Drawer
       message = @makeMessagePayload("end_dragging")
       @publish(message)
       @canvasCtx.closePath()
+  
+  clear: ->
+    @canvas.width = @canvas.width
+    message = @makeMessagePayload("end_drawing")
+    @publish(message)
 
 window.Drawer = Drawer
