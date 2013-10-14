@@ -13,7 +13,7 @@
       "data-channel" => channel}
 
   #loading
-    %img{src: image_path("loading.gif"), width: "100px", height: "100px"}
+    %img{src: image_path("loading.gif"), width: "60px", height: "60px"}
 
   #player-container
     .main_player
@@ -62,31 +62,5 @@
 
       streamingController = new StreamingController(".streaming_button", ".drawing_button", ".clear_button")
       streamingController.binding();
-
-      var streaming_info = $("#streaming_info");
-      var username = streaming_info.data("hostname");
-
-      window.publisher = false;
-
-      $("#fullscreen_btn").on("click", function(e) {
-        player.fullScreen("#player_container");
-      });
-
-
-      $(".next").on("click", function (e) {
-        player.next();
-        if (window.publisher) {
-          window.publisher.move(username, player.currentPage);
-        }
-        e.preventDefault();
-      });
-
-      $(".prev").on("click", function (e) {
-        player.prev();
-        if (window.publisher) {
-          window.publisher.move(username, player.currentPage);
-        }
-        e.preventDefault();
-      });
     });
   })(jQuery);

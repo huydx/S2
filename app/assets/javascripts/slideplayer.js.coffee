@@ -5,6 +5,22 @@ class SlidePlayer
     @currentPage = 1
     @progress = $(".player_progress")
     @images_loaded = (false for i in [0..@totalPage])
+    $(".next").on "click", (e) =>
+      @next()
+      e.preventDefault()
+
+    $(".prev").on "click", (e) =>
+      @prev()
+      e.preventDefault()
+
+    $("#fullscreen_btn").on "click", (e) =>
+      @fullScreen("#player_container")
+
+    $(document).keydown (e) =>
+      if e.keyCode is 37 #left
+        @prev()
+      else if e.keyCode is 39 #right
+        @next()
 
   loadImage: (index) ->
     if index > @totalPage
@@ -40,9 +56,13 @@ class SlidePlayer
 
   prev: () ->
     @gotoPage(@currentPage - 1)
+    if (window.publisher)
+      window.publisher.move("", @currentPage)
 
   next: () ->
     @gotoPage(@currentPage + 1)
+    if (window.publisher)
+      window.publisher.move("", @currentPage)
 
   fullScreen: (element_name) ->
     element = $(element_name)[0]
@@ -109,7 +129,7 @@ class StreamingController
       e.preventDefault()
 
     @clear_button.on "click", (e) =>
-      window.drawer.clear()
+      window.drawer.clear() if window.drawer
       e.preventDefault()
 
 window.StreamingController = StreamingController
