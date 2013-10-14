@@ -82,8 +82,8 @@ class SlidePlayer
 class StreamingController
   constructor: (streaming_button_name, drawing_button_name, clear_button_name) ->
     @statusDisplay = false
-    @controllerElem = $(".slide_controller")
-    @controllerDispButton = $("#slide_controller_display")
+    @$controllerElem = $(".slide_controller")
+    @$controllerDispButton = $("#slide_controller_display")
     @$loading = $("#loading")
 
     slideInfo = $("#slide_info")
@@ -97,12 +97,12 @@ class StreamingController
     @streaming_button = $(streaming_button_name)
     @drawing_button = $(drawing_button_name)
     @clear_button = $(clear_button_name)
-    @controllerElem.animate {
+    @$controllerElem.animate {
         bottom: "-100"
       }, 500
 
   binding: ->
-    @controllerDispButton.on "click", (e) =>
+    @$controllerDispButton.on "click", (e) =>
       if (@statusDisplay)
         controllerTranslation = "-100"
         dispButtonTranslation = "0"
@@ -111,10 +111,10 @@ class StreamingController
         dispButtonTranslation = "+100"
       
       @statusDisplay = !@statusDisplay
-      @controllerElem.animate {
+      @$controllerElem.animate {
         bottom: controllerTranslation
       }, 500
-      @controllerDispButton.animate {
+      @$controllerDispButton.animate {
         bottom: dispButtonTranslation
       }, 500
       e.preventDefault()
