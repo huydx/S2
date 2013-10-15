@@ -11,9 +11,8 @@
       "data-eventserver" => event_server_url, |
       "data-hostname" => current_user_name, |
       "data-channel" => channel}
-
   #loading
-    %img{src: image_path("loading.gif"), width: "60px", height: "60px"}
+    %img#loading_icon{src: image_path("loading.gif"), width: "60px", height: "60px"}
 
   #player-container
     .main_player
@@ -33,13 +32,16 @@
       .slide_control_panel
         .slide_streaming.control_button
           %a.streaming_button{href: "#"}
-            %img{src: image_path("streaming.png"), width: "50px", height: "50px"}
+            %img.normal_state{src: image_path("streaming.png"), width: "50px", height: "50px"}
+            %img.pressed_state{src: image_path("streaming_pressed.png"), width: "50px", height: "50px"}
         .slide_drawing.control_button
           %a.drawing_button{href: "#"}
-            %img{src: image_path("pen.png"), width: "50px", height: "50px"}
+            %img.normal_state{src: image_path("pen.png"), width: "50px", height: "50px"}
+            %img.pressed_state{src: image_path("pen_pressed.png"), width: "50px", height: "50px"}
         .slide_clear.control_button
           %a.clear_button{href: "#"}
-            %img{src: image_path("eraser.png"), width: "50px", height: "50px"}
+            %img.normal_state{src: image_path("eraser.png"), width: "50px", height: "50px"}
+            %img.pressed_state{src: image_path("eraser_pressed.png"), width: "50px", height: "50px"}
 
     %a#slide_controller_display{href: "#"}
       %img{src: image_path("gear.png"), width: "80px", height: "70px"}
@@ -60,7 +62,7 @@
       player = new SlidePlayer(slideImagePrefix, slideImageSuffix, slideImageNum);
       player.preload();
 
-      streamingController = new StreamingController(".streaming_button", ".drawing_button", ".clear_button")
+      streamingController = new StreamingController()
       streamingController.binding();
     });
   })(jQuery);
