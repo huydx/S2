@@ -92,8 +92,11 @@ class Drawer
       @publish(message)
       @canvasCtx.closePath()
   
-  clear: ->
+  clearScreen: ->
     @canvasCtx.clearRect(0, 0, @canvasWidth, @canvasHeight)
+
+  clear: ->
+    @clearScreen()
     message = @makeMessagePayload("clear_drawing")
     @publish(message)
 

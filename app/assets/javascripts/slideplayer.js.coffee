@@ -59,7 +59,7 @@ class SlidePlayer
     window.publisher.move("", @currentPage) if window.publisher
     if window.drawer
       window.drawer.saveState(@currentPage+1)
-      window.drawer.clear()
+      window.drawer.clearScreen()
       window.drawer.restoreState(@currentPage)
 
   next: () ->
@@ -67,7 +67,7 @@ class SlidePlayer
     window.publisher.move("", @currentPage) if window.publisher
     if window.drawer
       window.drawer.saveState(@currentPage-1)
-      window.drawer.clear()
+      window.drawer.clearScreen()
       window.drawer.restoreState(@currentPage)
 
   fullScreen: (element_name) ->
