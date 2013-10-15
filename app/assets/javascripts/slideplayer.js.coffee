@@ -59,7 +59,7 @@ class SlidePlayer
     window.publisher.move("", @currentPage) if window.publisher
     if window.drawer
       window.drawer.saveState(@currentPage+1)
-      window.drawer.clear()
+      window.drawer.clearScreen()
       window.drawer.restoreState(@currentPage)
 
   next: () ->
@@ -67,7 +67,7 @@ class SlidePlayer
     window.publisher.move("", @currentPage) if window.publisher
     if window.drawer
       window.drawer.saveState(@currentPage-1)
-      window.drawer.clear()
+      window.drawer.clearScreen()
       window.drawer.restoreState(@currentPage)
 
   fullScreen: (element_name) ->
@@ -80,7 +80,7 @@ class SlidePlayer
       element.webkitRequestFullScreen()
 
 class StreamingController
-  constructor: (streaming_button_name, drawing_button_name, clear_button_name) ->
+  constructor: () ->
     @statusDisplay = false
     @$controllerElem = $(".slide_controller")
     @$controllerDispButton = $("#slide_controller_display")
@@ -93,10 +93,19 @@ class StreamingController
     @event_server_url = streaming_info.data("eventserver")
     @streaming_host = streaming_info.data("hostname")
     @channel = streaming_info.data("channel")
+    
+    streaming_button_name = ".streaming_button"
+    drawing_button_name = ".drawing_button"
+    clear_button_name = ".clear_button"
 
     @streaming_button = $(streaming_button_name)
     @drawing_button = $(drawing_button_name)
     @clear_button = $(clear_button_name)
+
+    @streaming_button_pressed = false
+    @drawing_button_pressed = false
+    @clear_button_pressed = false
+
     @$controllerElem.animate {
         bottom: "-100"
       }, 500
@@ -105,34 +114,48 @@ class StreamingController
     @$controllerDispButton.on "click", (e) =>
       if (@statusDisplay)
         controllerTranslation = "-100"
-        dispButtonTranslation = "0"
       else
         controllerTranslation = "0"
-        dispButtonTranslation = "+100"
       
       @statusDisplay = !@statusDisplay
       @$controllerElem.animate {
         bottom: controllerTranslation
       }, 500
-      @$controllerDispButton.animate {
-        bottom: dispButtonTranslation
-      }, 500
       e.preventDefault()
 
     @streaming_button.on "click", (e) =>
-      @$loading.show()
-      window.fayeClient = new Faye.Client(@event_server_url)
-      window.publisher = new MovePublisher(@channel)
-      window.publisher.register @slideId, () =>
-        @$loading.hide()
+      if @streaming_button_pressed
+        @streaming_button.find(".pressed_state").hide()
+        @streaming_button.find(".normal_state").show()
+        window.publisher.stop() if window.publisher
+      else
+        @streaming_button.find(".pressed_state").show()
+        @streaming_button.find(".normal_state").hide()
+        @$loading.show()
+        window.fayeClient = new Faye.Client(@event_server_url)
+        window.publisher = new MovePublisher(@channel)
+        window.publisher.register @slideId, () =>
+          @$loading.hide()
 
-      window.receiver = new QuestionReceiver(@channel)
-      e.preventDefault()
+        window.receiver = new QuestionReceiver(@channel)
+        e.preventDefault()
+        
+      @streaming_button_pressed = !@streaming_button_pressed
 
     @drawing_button.on "click", (e) =>
-      window.drawer = new Drawer("#drawing_canvas", @streaming_host, @channel)
-      window.drawer.binding()
-      e.preventDefault()
+      if @drawing_button_pressed
+        @drawing_button.find(".pressed_state").hide()
+        @drawing_button.find(".normal_state").show()
+        window.drawer.off() if window.drawer
+      else
+        @drawing_button.find(".pressed_state").show()
+        @drawing_button.find(".normal_state").hide()
+        unless window.drawer and window.drawer.isOn()
+          window.drawer = new Drawer("#drawing_canvas", @streaming_host, @channel)
+        window.drawer.binding()
+        e.preventDefault()
+
+      @drawing_button_pressed = !@drawing_button_pressed
 
     @clear_button.on "click", (e) =>
       window.drawer.clear() if window.drawer
