@@ -1,16 +1,25 @@
 class Publisher
   constructor: (channel) ->
+    @stateOn = true
     @faye = window.fayeClient
     @channel = channel
-    @subscription = @faye.subscribe channel, (message) ->
+    @subscription = @faye.subscribe @channel, (message) ->
   
   broadcast: (message) ->
-    @faye.publish(@channel, message)
+    @faye.publish(@channel, message) if @stateOn
 
   stop: ->
-    @subscription.cancel()
+    @stateOn = false
+    @faye.unsubscribe(@channel)
+
+  on: ->
+    @stateOn = true
+
+  isOn: ->
+    @stateOn
 
   register: (slide_id, callback) ->
+    @stateOn = true
     $.post "/streaming/register",
       channel: @channel
       slide_id: slide_id

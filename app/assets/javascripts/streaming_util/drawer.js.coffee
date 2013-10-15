@@ -3,6 +3,7 @@ class Drawer
     @canvas_element_name = element_name
     @faye = window.fayeClient
     @channel = channel
+    @stateOn = false
 
     #explicit set canvas width and height
     slide_width = $("#current_slide").width()
@@ -22,7 +23,16 @@ class Drawer
     @drawQueueTicker = 0
     @drawQueue = []
   
+  isOn: ->
+    @stateOn
+
+  off: ->
+    @stateOn = false
+    $(@canvas_element_name).off 'drag dragstart dragend'
+
   binding: ->
+    @canvasCtx.restore()
+    @stateOn = true
     that = this
     $(@canvas_element_name).on 'drag dragstart dragend', (e) ->
       type = e.handleObj.type
@@ -44,7 +54,7 @@ class Drawer
           pointSet:
             "#{queue[0].x} #{queue[0].y} #{queue[1].x} #{queue[1].y} #{queue[2].x} #{queue[2].y} #{queue[3].x} #{queue[3].y}"
     
-    if type is "end_dragging" || type is "end_drawing"
+    if type is "end_dragging" || type is "clear_drawing"
       payload =
         messageType: 'draw'
         messageOwner: '' #temporally
@@ -54,7 +64,7 @@ class Drawer
     return payload
 
   publish: (message) ->
-    @faye.publish(@channel, message) if @faye
+    @faye.publish(@channel, message) if @faye && window.publisher.isOn()
 
   draw: (x, y, type) ->
     if type is "dragstart"
@@ -82,9 +92,12 @@ class Drawer
       @publish(message)
       @canvasCtx.closePath()
   
+  clearScreen: ->
+    @canvasCtx.clearRect(0, 0, @canvasWidth, @canvasHeight)
+
   clear: ->
-    @canvas.width = @canvas.width
-    message = @makeMessagePayload("end_drawing")
+    @clearScreen()
+    message = @makeMessagePayload("clear_drawing")
     @publish(message)
 
   saveState: (pageNum) ->
