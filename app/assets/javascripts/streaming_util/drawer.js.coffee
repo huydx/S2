@@ -64,7 +64,7 @@ class Drawer
     return payload
 
   publish: (message) ->
-    @faye.publish(@channel, message) if @faye
+    @faye.publish(@channel, message) if @faye && window.publisher.isOn()
 
   draw: (x, y, type) ->
     if type is "dragstart"
