@@ -1,3 +1,182 @@
-// Place all the styles related to the top controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+html {
+  overflow: auto;
+}
+
+body {
+  overflow: hidden;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+section#home {
+  position: absolute;
+  left: 0;
+  height: 750px;
+  width: 1280px;
+  background-image: image-url("top_tmp.jpg");
+  background-attachment: fixed;
+
+  .container {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #444444;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    .title {
+      font-size: 40pt;
+      position: absolute;
+      left: 140px;
+      top: 95px;
+      color: #74D81C;
+    }
+
+    .side-bar {
+      position: absolute;
+      top: 140px;
+      left: 941px;
+      background-color: #444444;
+      width: 300px;
+      height: 350px;
+      background-color: rgba(0, 0, 0, 0.7);
+
+      .side-bar-container {
+        margin: 10px;
+
+        .abst-list {
+          margin-top: 85px;
+        }
+
+        li {
+          border-bottom: 1px solid;
+        }
+      }
+
+      h1, h3{
+        color: #FFFFFF;
+      }
+    }
+
+    .top_img {
+      margin-top: 200px;
+    }
+  }
+}
+
+section#abstraction {
+  margin-top: 790px;
+  position: relative;
+  height: 750px;
+
+  .circle {
+    position: relative;
+    display: inline-block;
+    padding-top: 70px;
+    width: 300px;
+    height: 300px;
+    text-align: center;
+    background: #EEEEEE;
+    -moz-border-radius: 150px;
+    -webkit-border-radius: 150px;
+    border-radius: 150px;
+    z-index: 1;
+
+    .detail {
+      width: 200px;
+      margin: 0 auto;
+    }
+
+    a {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      text-decoration: none;
+      z-index: 10;
+      background-color: #FFF;
+      opacity: 0;
+      filter: alpha(opacity = 1);
+      -moz-border-radius: 150px;
+      -webkit-border-radius: 150px;
+      border-radius: 150px;
+    }
+  }
+
+  .circle:hover {
+    background-color: #E57262;
+    z-index: 2;
+  }
+
+  .memo, .question {
+    margin-left: -45px;
+  }
+
+  .movie-description {
+    margin-top: 75px;
+    padding-left: 15px;
+  }
+
+  .movie {
+    margin-top: 70px;
+  }
+}
+
+section#function {
+  h1 {
+    display: inline-block;
+  }
+  .slide, .memo, .question {
+    margin: 0 -500%;
+    padding: 20px 500%;
+  }
+
+  .slide {
+    border: 5px solid #DDDDDD;
+    background-color: #EEEEEE;
+  }
+
+  .memo {
+    border-bottom: 5px solid #DDDDDD;
+    background-color: #FAF9E6;
+  }
+
+  .question {
+    margin-top: -20px;
+
+    .send-question {
+      width: 700px;
+    }
+  }
+}
+
+section#member {
+  margin: 0 -500%;
+  padding: 20px 500%;
+  background-color: #EEEEEE;
+  background: -webkit-gradient(linear, left top, right bottom, from(#ddd), color-stop(0.25, #ddd), color-stop(0.25, white), color-stop(0.5, white), color-stop(0.5, #ddd), color-stop(0.75, #ddd), color-stop(0.75, white), to(white));
+  background: -moz-linear-gradient(-45deg, #ddd 25%, white 25%, white 50%, #ddd 50%, #ddd 75%, white 75%, white);
+  background: linear-gradient(-45deg, #ddd 25%, white 25%, white 50%, #ddd 50%, #ddd 75%, white 75%, white);
+  background-size: 4px 4px;
+
+  .person {
+    display: inline-block;
+    margin: 0 120px;
+  }
+
+  .circle {
+    position: relative;
+    display: inline-block;
+    padding-top: 70px;
+    width: 300px;
+    height: 300px;
+    text-align: center;
+    background: #EEEEEE;
+    -moz-border-radius: 150px;
+    -webkit-border-radius: 150px;
+    border-radius: 150px;
+  }
+}
