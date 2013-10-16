@@ -14,12 +14,13 @@
             = link_to "S2", home_index_path, class: :brand
           - else
             = link_to "S2", root_path, class: :brand
-          %ul.nav.navbar-nav.pull-right
+          %ul.nav.navbar-nav.pull-right.active
             - if user_signed_in?
               %li= current_user.username
               %li=link_to "ログアウト",  destroy_user_session_path,  method: :delete
             - else
-              %li=link_to "ログイン",  new_user_session_path
+              %li
+                =link_to "ログイン",  new_user_session_path
 
     .container
       = yield
