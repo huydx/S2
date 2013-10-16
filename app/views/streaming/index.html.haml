@@ -11,6 +11,11 @@
       "data-eventserver" => event_server_url, |
       "data-hostname" => current_user_name, |
       "data-channel" => channel}
+    = stylesheet_link_tag "slide"
+    = stylesheet_link_tag "jquery.gritter"
+    = javascript_include_tag "streaming"
+    = javascript_include_tag event_server_js_file
+
   #loading
     %img#loading_icon{src: image_path("loading.gif"), width: "60px", height: "60px"}
 
@@ -46,23 +51,23 @@
     %a#slide_controller_display{href: "#"}
       %img{src: image_path("gear.png"), width: "80px", height: "70px"}
 
-= stylesheet_link_tag "slide"
-= stylesheet_link_tag "jquery.gritter"
-= javascript_include_tag "streaming"
-= javascript_include_tag event_server_js_file
-
 :javascript
   (function($) {
-    $(document).ready(function() {
+    function init_all() {
       var slideInfo = $("#slide_info");
       var slideImagePrefix = slideInfo.data("prefix");
       var slideImageSuffix = slideInfo.data("suffix");
       var slideImageNum = slideInfo.data("totalpage");
+    
+      if (SlidePlayer && StreamingController) {
+        player = new SlidePlayer(slideImagePrefix, slideImageSuffix, slideImageNum);
+        player.preload();
 
-      player = new SlidePlayer(slideImagePrefix, slideImageSuffix, slideImageNum);
-      player.preload();
+        streamingController = new StreamingController()
+        streamingController.binding();
+      }
+    }
 
-      streamingController = new StreamingController()
-      streamingController.binding();
-    });
+    $(window).bind('page:change', init_all);
+    $(document).ready(init_all);
   })(jQuery);
