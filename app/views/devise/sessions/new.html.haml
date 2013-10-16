@@ -1,19 +1,18 @@
 = stylesheet_link_tag :sign_in
-.row
-  .form-group.has-success
-    = flash[:notice]
-  .login-screen
-    %h2 サインイン
-    .login-icon
-      %img{src: image_path("streaming.png")}
-      %h4
-        Welcome to
-        %small
-          SSlide
-    = form_for resource, as: resource_name, url: session_path(resource_name), html: {class: "login-form"}  do |f|
-      .form-group
-        = f.text_field :username, :autofocus => true, :class => "form-control login-field", :placeholder => "Enter your email"
-      .form-group
-        = f.password_field :password, :class => "form-control login-field", :placeholder => "Enter your password"
-      .btn-submit
-        = f.submit "Sign in", class: "btn btn-info"
+.login-screen
+  %h2 サインイン
+  .login-icon
+    %img{src: image_path("streaming.png")}
+    %h4
+      Welcome to
+      %small
+        SSlide
+  = form_for resource, as: resource_name, url: session_path(resource_name), html: {class: "login-form"}  do |f|
+    .form-group.has-success
+      = flash[:notice]
+    .form-group
+      = f.text_field :username, :autofocus => true, :class => "form-control login-field", :placeholder => "Enter your email"
+    .form-group
+      = f.password_field :password, :class => "form-control login-field", :placeholder => "Enter your password"
+    .btn-submit
+      = f.submit "Sign in", class: "btn btn-info"
