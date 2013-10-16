@@ -1,2 +1,81 @@
-%h1 Top#index
-%p Find me in app/views/top/index.html.haml
+%section#home
+  .container
+    %h1.title プレゼンテーションを革新する
+    =image_tag "top_img.png", class: "top_img"
+    .side-bar
+      .side-bar-container
+        %h1 S2
+        %ul.abst-list
+          %li
+            %h3 スライドの共有
+          %li
+            %h3 メモの共有
+          %li
+            %h3 質問機能
+
+%section#abstraction
+  %article
+    .circle
+      %a(href="#function-slideshare")
+      %h3 スライドの共有
+      %p.detail
+        スライドが共有されます。プレゼンターがスライドを送ると接続している端末(聴講者)のスライドも自動的にページが送られます。
+    .circle.memo
+      %a(href="#function-memo")
+      %h3 メモの共有
+      %p.detail
+        プレゼンターはスライドにメモを書くことができます。書いたメモは共有され接続している端末(聴講者)のスライドにも表示されます。
+    .circle.question
+      %a(href="#function-question")
+      %h3 質問機能
+      %p.detail
+        聴講者は接続している端末から、プレゼンターに質問を送ることができ、プレゼンターはプレゼン中にその質問を受け取ることができます。
+  %article.movie
+    .col-md-5
+      .movie-description
+        %h1 プロジェクターは不要に!
+        %h4
+          このサービスの機能をフルに活用する事によってプレゼンテーションの際、プロジェクターは不要になります。スライドが共有され、指示棒の代わりに線もスライドに書く事ができ補足事項も直接スライドに書くことができます。また、直接ではしにくい質問気軽にできるようになっており、インタラクティブなプレゼンテーションが可能になります。
+    .col-md-5
+      %iframe(width="650" height="370" src="//www.youtube.com/embed/VksAz6d7RK0" frameborder="0" allowfullscreen)
+
+%section#function
+  %article.slide#function-slideshare
+    .row
+      .col-md-7
+        =image_tag "slideshare.png", class: "slide-share"
+      .col-md-5
+        %h2 スライド共有
+  %article.memo#function-memo
+    .row
+      .col-md-2
+        %h2 メモ共有
+      .col-md-10
+        =image_tag "memo.png", class: "memo-share"
+  %article.question#function-question
+    .row
+      .col-md-5
+        =image_tag "question.png", class: "send-question"
+      .col-md-5
+      %h1 質問機能
+
+%section#member
+  %article
+    %h1 Member
+    .row
+      .span.person
+        =image_tag "fukuda.jpg", class: "circle"
+        %p Server side Engineer
+        %h3 Do Huy
+      .span.person
+        =image_tag "fukuda.jpg", class: "circle"
+        %p iOS Developer
+        %h3 Nghia
+      .span.person
+        =image_tag "fukuda.jpg", class: "circle"
+        %p Designer
+        %h3 Hung
+      .span.person
+        =image_tag "fukuda.jpg", class: "circle"
+        %p Markup Enginner
+        %h3 Koya
