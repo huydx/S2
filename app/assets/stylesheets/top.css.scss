@@ -161,22 +161,23 @@ section#member {
   background: -moz-linear-gradient(-45deg, #ddd 25%, white 25%, white 50%, #ddd 50%, #ddd 75%, white 75%, white);
   background: linear-gradient(-45deg, #ddd 25%, white 25%, white 50%, #ddd 50%, #ddd 75%, white 75%, white);
   background-size: 4px 4px;
+  text-align: center;
 
   .person {
     display: inline-block;
-    margin: 0 120px;
+    margin: 0 50px;
   }
 
   .circle {
     position: relative;
     display: inline-block;
     padding-top: 70px;
-    width: 300px;
-    height: 300px;
+    width: 150px;
+    height: 150px;
     text-align: center;
     background: #EEEEEE;
-    -moz-border-radius: 150px;
-    -webkit-border-radius: 150px;
-    border-radius: 150px;
+    -moz-border-radius: 75px;
+    -webkit-border-radius: 75px;
+    border-radius: 75px;
   }
 }
