@@ -53,6 +53,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    colorbox-rails (0.1.0)
+      jquery-rails
+      rails (>= 3.1.1)
     columnize (0.3.6)
     curb (0.8.5)
     debug_inspector (0.0.2)
@@ -180,6 +183,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   coffee-rails (~> 4.0.0)
+  colorbox-rails
   debugger
   devise
   dotenv-rails
