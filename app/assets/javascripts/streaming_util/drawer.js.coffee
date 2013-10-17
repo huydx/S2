@@ -55,6 +55,7 @@ class Drawer
             "#{queue[0].x} #{queue[0].y} #{queue[1].x} #{queue[1].y} #{queue[2].x} #{queue[2].y} #{queue[3].x} #{queue[3].y}"
     
     if type is "end_dragging" || type is "clear_drawing"
+      @drawQueue = []
       payload =
         messageType: 'draw'
         messageOwner: '' #temporally
@@ -71,17 +72,15 @@ class Drawer
       @canvasCtx.beginPath()
       @canvasCtx.moveTo(x, y)
     else if type is "drag"
-      if @drawQueueTicker < 4
+      if @drawQueue.length < 4
         @drawQueue.push
           y: x / @canvasWidth
           x: 1 - y / @canvasHeight
-        @drawQueueTicker += 1
       else
         message = @makeMessagePayload("dragging")
         @publish(message)
 
         #reset ticker and queue
-        @drawQueueTicker = 0
         @drawQueue = @drawQueue.slice 3
 
 
