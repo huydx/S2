@@ -16,6 +16,7 @@ gem 'anjlab-bootstrap-rails', '~> 3.0.0.3', :require => 'bootstrap-rails'
 gem "devise"
 gem "redis"
 gem "flat-ui-rails"
+gem 'colorbox-rails'
 
 group :doc do
   gem 'sdoc', require: false
