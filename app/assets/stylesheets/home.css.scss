@@ -1,19 +1,20 @@
 .slide-box {
   position: relative;
   display: inline-block;
-  width: 210px;
+  height: 300px;
+  width: 365px;
   margin-left: 10px;
   margin-right: 10px;
 
   .img-wrapper{
     margin: 0 auto;
     text-align: center;
-    width: 170px;
-    height: 128px;
+    width: 265px;
+    height: 200px;
 
     img{
-      width: 170px;
-      height: 128px;
+      width: 265px;
+      height: 200px;
     }
   }
 
@@ -31,11 +32,40 @@
   }
 
   .title {
+    color: #FFFFFF;
+    margin-top: 0;
     border-bottom: 1px solid #E3E3E3;
-     width: 170px;
      white-space: nowrap;
      overflow: hidden;
      text-overflow: ellipsis;
      -o-text-overflow: ellipsis
   }
+}
+
+.golden-tainoi {
+  background-color: #FFD464;
+}
+
+.puerto-rico {
+  background-color: #5EBABA;
+}
+
+.atlantis {
+  background-color: #8DCF3F;
+}
+
+.light-coral {
+  background-color: #F58E7E;
+}
+
+.downy {
+  background-color: #79D1B0;
+}
+
+.empress {
+  background-color: #737373;
+}
+
+.turquoise {
+  background-color: #44DEDE;
 }

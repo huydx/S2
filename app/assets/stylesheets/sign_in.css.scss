@@ -1,3 +1,33 @@
-.login-icon {
-  top: 280px;
+.navbar {
+  margin-bottom: 0;
+}
+
+.login-screen {
+  position: absolute;
+  top: 0;
+  left:0;
+  height: 500px;
+  width: 1280px;
+
+  .login-icon {
+    margin-top: 22px;
+    margin-left: 157px;
+  }
+
+  .login-form {
+    width: 345px;
+    margin-left: 225px;
+
+    .btn-submit {
+      text-align: center;
+    }
+  }
+
+  h2 {
+    margin-left: 307px;
+  }
+}
+
+footer {
+  margin-top: 447px;
 }
