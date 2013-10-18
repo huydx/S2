@@ -2,10 +2,13 @@
   .container
     .main
       .col-md-4.side-content
-        %h3 SSlide
-        %p hogehogehgoegehoghgoehgoehgoeaaaaaa
-        %p hogehogehgoegehoghgoehgoehgoeaaaaaa
-        %p hogehogehgoegehoghgoehgoehgoeaaaaaa
+        %p.screen-text
+          A
+          %span presentation
+          tool
+          %span innovation
+        .span
+          =image_tag "logo.png", class: :logo
         .youtube-wrapper
           .col-md-4
             =link_to "http://www.youtube.com/embed/VksAz6d7RK0",  data:{colorbox: true, colorbox_height: "500px",  colorbox_width: "600px",   colorbox_iframe: true} do
@@ -16,46 +19,55 @@
         .btn-wrapper
           =link_to "Sign in",  new_user_session_path, class: "btn btn-large btn-wide"
       .col-md-8
-        =image_tag "imac.png"
-        =image_tag "iphone.png"
+        =image_tag "imac.png", class: :imac
+        =image_tag "iphone.png", class: :iphone
 
 %section#function
   %article.slide#function-slideshare
     .row
-      .col-md-7
+      .col-md-8
         =image_tag "slideshare.png", class: "slide-share"
-      .col-md-5
-        %h2 スライド共有
+      .col-md-4
+        =image_tag "slide-share-text.png", class: "slide-share-text"
   %article.memo#function-memo
     .row
-      .col-md-5
-        %h2 メモ共有
-      .col-md-7
+      .col-md-4
+        =image_tag "memo-text.png", class: "memo-text"
+      .col-md-8
         =image_tag "memo.png", class: "memo-share"
   %article.question#function-question
     .row
-      .col-md-7
+      .col-md-8
         =image_tag "question.png", class: "send-question"
-      .col-md-5
-      %h1 質問機能
+      .col-md-4
+        =image_tag "question-text.png", class: "question-text"
 
 %section#member
   %article
     %h1 Member
     .row
       .span.person
-        =image_tag "fukuda.jpg", class: "circle"
+        =image_tag "huy.png"
+        %h3 huydx
         %p Server side Engineer
-        %h3 Huy
+        =link_to "https://github.com/huydx/" do
+          =image_tag "github.png"
       .span.person
-        =image_tag "fukuda.jpg", class: "circle"
+        =image_tag "nghia.png"
+        %h3 nghialv
         %p iOS Developer
-        %h3 Nghia
+        =link_to "https://github.com/nghialv/" do
+          =image_tag "github.png"
       .span.person
-        =image_tag "fukuda.jpg", class: "circle"
+        =image_tag "hung.png"
+        %h3 dkonayuki
         %p iOS Devloper
-        %h3 Hung
+        =link_to "https://github.com/dkonayuki" do
+          =image_tag "github.png"
       .span.person
-        =image_tag "fukuda.jpg", class: "circle"
+        =image_tag "fukuda.png"
+        %h3 kouyaf77
         %p Markup Enginner
-        %h3 Koya
+        =link_to "https://github.com/kouyaf77" do
+          =image_tag "github.png"
+
