@@ -19,38 +19,9 @@
   #loading
     %img#loading_icon{src: image_path("loading.gif"), width: "60px", height: "60px"}
 
-  #player-container
-    .main_player
-      .header.primary_color
-        #fullscreen_btn
-      #player_container.player
-        %img#current_slide{src: first_page(@slide)}
-        %canvas#drawing_canvas.covering_canvas
-      .footer.primary_color
-        .controls
-          .prev.control_btn
-          .next.control_btn
-        .player_progress_container
-          .player_progress{style: "width: #{100 / pages(@slide)}%;"}
-
-    .slide_controller
-      .slide_control_panel
-        .slide_streaming.control_button
-          %a.streaming_button{href: "#"}
-            %img.normal_state{src: image_path("streaming.png"), width: "50px", height: "50px"}
-            %img.pressed_state{src: image_path("streaming_pressed.png"), width: "50px", height: "50px"}
-        .slide_drawing.control_button
-          %a.drawing_button{href: "#"}
-            %img.normal_state{src: image_path("pen.png"), width: "50px", height: "50px"}
-            %img.pressed_state{src: image_path("pen_pressed.png"), width: "50px", height: "50px"}
-        .slide_clear.control_button
-          %a.clear_button{href: "#"}
-            %img.normal_state{src: image_path("eraser.png"), width: "50px", height: "50px"}
-            %img.pressed_state{src: image_path("eraser_pressed.png"), width: "50px", height: "50px"}
-
-    %a#slide_controller_display{href: "#"}
-      %img{src: image_path("gear.png"), width: "80px", height: "70px"}
-
+    = render "slide"
+    = render "controller"
+    
 :javascript
   (function($) {
     function init_all() {
