@@ -8,6 +8,7 @@ S2::Application.routes.draw do
     get "streaming/:id" => :index, as: :index
     post "streaming/register" => :register_channel
     post "streaming/remove" => :remove_channel
+    get "streaming/:id/client" => :client
   end 
 
   resources :users, only: [:show]

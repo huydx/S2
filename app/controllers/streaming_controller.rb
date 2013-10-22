@@ -44,6 +44,10 @@ class StreamingController < ApplicationController
     render nothing: true, status: 200
   end
 
+  def client
+
+  end
+
   private
   def set_up_api
     @api_instance = SlideShare::Base.new(
