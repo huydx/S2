@@ -1,0 +1,19 @@
+%table
+  %tbody
+    %tr
+      %td.votecell
+        .vote
+          %a.vote-up-off
+          .vote-count-post
+            = question.vote_count
+          %a.vote-down-off
+      %td.postcell
+        .post-text
+          question.content
+    %tr
+      %td
+        %div{id: "#answer-#{question.answer.id}"}
+        %table
+          %tr
+            %td
+              = question.answer.content

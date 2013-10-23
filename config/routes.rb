@@ -1,4 +1,5 @@
 S2::Application.routes.draw do
+  get "question/index"
   root "top#index"
 
   devise_for :users, controllers: {sessions: "sessions"}
@@ -10,6 +11,10 @@ S2::Application.routes.draw do
     post "streaming/remove" => :remove_channel
     get "streaming/:id/client" => :client
   end 
+
+  controller :question do
+    get ":id/question" => :index
+  end
 
   resources :users, only: [:show]
   resources :home, only: [:index]

@@ -1,0 +1,4 @@
+- @questions.each do |question|
+  .question{"data-id" => question.id}
+    = render "cell", question: question
+

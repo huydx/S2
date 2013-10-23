@@ -1,0 +1,33 @@
+.vote {
+  overflow: hidden;
+  text-align: center;
+  font-weight: normal;
+
+  .vote-up-off {
+    background-image: url("/assets/sprites.png");
+    background-repeat: no-repeat;
+    background-position: 0px -265px;
+    display:block;
+    margin: 0 auto;
+    width: 41px;
+    height: 25px;
+  }
+    
+  .vote-count-post {
+    background-image: none;
+    font-size: 24px;
+    color: rgb(85, 85, 85);
+  }
+
+  .vote-down-off {
+    background-image: url("/assets/sprites.png");
+    background-repeat: no-repeat;
+    background-position: 0px -300px;
+    display:block;
+    margin: 0 auto;
+    width: 41px;
+    height: 25px;
+  }
+}
+
+
