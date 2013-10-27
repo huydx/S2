@@ -1,8 +1,12 @@
 S2::Application.routes.draw do
-  get "question/index"
   root "top#index"
 
   devise_for :users, controllers: {sessions: "sessions"}
+
+  controller :answer do
+    post "answer/create" => :create
+    get "answer/index" => :index
+  end
 
   controller :streaming do
     get "streaming/search" => :search
@@ -14,6 +18,7 @@ S2::Application.routes.draw do
 
   controller :question do
     get ":id/question" => :index
+    post "question/vote" => :vote
   end
 
   resources :users, only: [:show]

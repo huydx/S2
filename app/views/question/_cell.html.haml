@@ -3,15 +3,20 @@
     %tr
       %td.votecell
         .vote
-          %a.vote-up-off
+          %a.vote-up{href: "#", class: vote_up_class(@slide_id, question.id)}
           .vote-count-post
-            = question.vote_count
-          %a.vote-down-off
+            = vote_count(@slide_id, question.id)
+          %a.vote-down{href: "#", class: vote_down_class(@slide_id, question.id)}
       %td.postcell
         .post-text
-          question.content
+          = question.content
+      %td.extra
+        .extrabutton
+          %a.addanswer{href: "#"}
+        
     %tr
-      %td
+      %td.votecell
+      %td.answercell
         %div{id: "#answer-#{question.answer.id}"}
         %table
           %tr

@@ -1,4 +1,55 @@
+%meta{id: "page-info", "data-slide-id" => @slide_id}
 - @questions.each do |question|
-  .question{"data-id" => question.id}
+  .question{id: question.id, "data-id" => question.id}
     = render "cell", question: question
 
+:javascript
+  (function($) {
+    $(".addanswer").on("click", function(e){
+      var questionId = $(this).closest(".question").data("id");
+      $.colorbox({href: "/answer/index?questionId="+questionId});
+      e.preventDefault(); 
+    });
+
+    $(".vote-up").on("click", function(e){
+      var that = $(this);
+      var questionId = $(this).closest(".question").data("id");
+      var slideId = $("#page-info").data("slide-id");
+      $.ajax({
+        type: "POST",
+        url: "/question/vote",
+        data: {
+          type: "up", 
+          question_id: questionId,
+          slide_id : slideId
+        }
+      }).done(function(msg) {
+        that.closest(".votecell")
+          .find(".vote-count-post")
+          .html(msg.score);
+        that.removeClass("vote-up-off");
+        that.addClass("vote-up-on");
+      });
+    });
+    
+    $(".vote-down").on("click", function(e){
+      var that = $(this);
+      var questionId = $(this).closest(".question").data("id");
+      var slideId = $("#page-info").data("slide-id");
+      $.ajax({
+        type: "POST",
+        url: "/question/vote",
+        data: {
+          type: "down", 
+          question_id: questionId,
+          slide_id : slideId
+        }
+      }).done(function(msg) {
+        that.closest(".votecell")
+          .find(".vote-count-post")
+          .html(msg.score);
+        that.removeClass("vote-down-off");
+        that.addClass("vote-down-on");
+      });
+    });
+  })(jQuery);
