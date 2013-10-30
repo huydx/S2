@@ -3,12 +3,12 @@
     .slide_streaming.control_button
       - if request.url.match "client"
         %a.subscribe_button{href: "#"}
-          %img.normal_state{src: image_path("streaming.png"), width: "50px", height: "50px"}
-          %img.pressed_state{src: image_path("streaming_pressed.png"), width: "50px", height: "50px"}
+          %img.normal_state{src: image_path("streaming.png")}
+          %img.pressed_state{src: image_path("streaming_pressed.png")}
       - else
         %a.streaming_button{href: "#"}
-          %img.normal_state{src: image_path("streaming.png"), width: "50px", height: "50px"}
-          %img.pressed_state{src: image_path("streaming_pressed.png"), width: "50px", height: "50px"}
+          %img.normal_state{src: image_path("streaming.png")}
+          %img.pressed_state{src: image_path("streaming_pressed.png")}
     .slide_drawing.control_button
       %a.drawing_button{href: "#"}
         %img.normal_state{src: image_path("pen.png")}
