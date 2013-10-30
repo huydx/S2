@@ -31,10 +31,10 @@ class Subscriber
   isOn: ->
     @stateOn
 
-  triggerEvent: (trigger_event_name, pageNum) ->
+  triggerEvent: (trigger_event_name, arg = null) ->
     @binding_events.forEach (event, i) ->
       if trigger_event_name == event.name
-        event.callback pageNum
+        event.callback arg
 
   onEvent: (event, callback) =>
     @binding_events.push

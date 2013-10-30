@@ -95,15 +95,17 @@ class StreamingController
     @channel = streaming_info.data("channel")
 
     streaming_button_name = ".streaming_button"
+    subscribe_button_name = ".subscribe_button"
     drawing_button_name = ".drawing_button"
     clear_button_name = ".clear_button"
 
     @streaming_button = $(streaming_button_name)
-    @$subscribe_button = $(".subscribe_button")
+    @$subscribe_button = $(subscribe_button_name)
     @drawing_button = $(drawing_button_name)
     @clear_button = $(clear_button_name)
 
     @streaming_button_pressed = false
+    @subscribe_button_pressed = false
     @drawing_button_pressed = false
     @clear_button_pressed = false
 
@@ -145,10 +147,20 @@ class StreamingController
 
     @$subscribe_button.on "click", (e) =>
       e.preventDefault()
-      window.fayeClient = new Faye.Client @event_server_url
-      window.subscriver = new Subscriber @channel
-      window.subscriver.onEvent "gotoPage", (pageNum) =>
-        window.player.gotoPage pageNum
+
+      if @subscribe_button_pressed
+        @$subscribe_button.find(".pressed_state").hide()
+        @$subscribe_button.find(".normal_state").show()
+        window.subscriber.stop() if window.subscriber
+      else
+        @$subscribe_button.find(".pressed_state").show()
+        @$subscribe_button.find(".normal_state").hide()
+        window.fayeClient = new Faye.Client @event_server_url
+        window.subscriber = new Subscriber @channel
+        window.subscriber.onEvent "gotoPage", (pageNum) =>
+          window.player.gotoPage pageNum if pageNum
+
+      @subscribe_button_pressed = !@subscribe_button_pressed
 
     @drawing_button.on "click", (e) =>
       if @drawing_button_pressed
