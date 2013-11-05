@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# Answer.create(
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +12,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131009131335) do
+ActiveRecord::Schema.define(version: 20131023120055) do
+
+  create_table "answers", force: true do |t|
+    t.integer  "question_id"
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "questions", force: true do |t|
+    t.string   "slide_id"
+    t.string   "content"
+    t.string   "ask_user"
+    t.string   "host_user"
+    t.integer  "vote_up"
+    t.integer  "vote_down"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "host_name"
+  end
 
   create_table "users", force: true do |t|
     t.string   "username",               default: "", null: false
