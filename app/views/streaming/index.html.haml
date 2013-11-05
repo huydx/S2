@@ -21,7 +21,7 @@
 
   = render "slide"
   = render "controller"
-    
+
 :javascript
   (function($) {
     function init_all() {
@@ -29,10 +29,10 @@
       var slideImagePrefix = slideInfo.data("prefix");
       var slideImageSuffix = slideInfo.data("suffix");
       var slideImageNum = slideInfo.data("totalpage");
-    
+
       if (SlidePlayer && StreamingController) {
-        player = new SlidePlayer(slideImagePrefix, slideImageSuffix, slideImageNum);
-        player.preload();
+        window.player = new SlidePlayer(slideImagePrefix, slideImageSuffix, slideImageNum);
+        window.player.preload();
 
         streamingController = new StreamingController()
         streamingController.binding();

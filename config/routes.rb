@@ -6,10 +6,10 @@ S2::Application.routes.draw do
   controller :streaming do
     get "streaming/search" => :search
     get "streaming/:id" => :index, as: :index
+    get "streaming/:id/client" => :index
     post "streaming/register" => :register_channel
     post "streaming/remove" => :remove_channel
-    get "streaming/:id/client" => :client
-  end 
+  end
 
   resources :users, only: [:show]
   resources :home, only: [:index]
