@@ -21,6 +21,7 @@ S2::Application.routes.draw do
     post "question/vote" => :vote
     get "question/ask_page" => :ask_page
     post "question/ask_post" => :ask_post
+    post "question/add_answer" => :add_answer
   end
 
   resources :users, only: [:show]

@@ -48,6 +48,16 @@ class QuestionController < ApplicationController
   rescue Exception
     render nothing: true
   end
+  
+  def add_answer
+    question_id = params['question-id'].to_i
+    answer = Question.find(question_id).answer
+
+    answer = answer.nil? ? 
+      Answer.create(content: params["answer-content"], question_id: question_id) :
+      answer.update(content: params["answer-content"])
+    render js: "location.reload();"
+  end
 
   private
   def redis_vote_key_with_parms(slide_id, question_id)
@@ -74,9 +84,9 @@ class QuestionController < ApplicationController
   end
 
   def broadcast(channel, payload)
-    mes = {:channel => channel, :data => payload}
+    mes = {:channel => channel, data: payload}
     uri = URI.parse(event_server)
-    Net::HTTP.post_form(uri, :message => mes.to_json)
+    Net::HTTP.post_form(uri, message: mes.to_json)
   end
 
   def make_question_payload(content)
