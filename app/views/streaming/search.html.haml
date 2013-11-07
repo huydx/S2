@@ -1,0 +1,7 @@
+.row
+  .row.well.slide-box
+    - if @channel_info
+      %a(href="/streaming/#{@channel_info[:slideId]}/client")
+        %h3.title= raw(@channel_info[:title])
+      .img-wrapper
+        =image_tag "#{@channel_info[:thumbnailUrl]}"

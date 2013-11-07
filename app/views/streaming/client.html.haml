@@ -1,0 +1,44 @@
+.row
+  %h1
+    = title(@slide)
+    %meta{id: "slide_info", |
+      "data-prefix" => prefix(@slide), |
+      "data-suffix" => suffix(@slide), |
+      "data-totalpage" => pages(@slide), |
+      "data-id" => slide_id(@slide)}
+
+    %meta{id: "streaming_info", |
+      "data-eventserver" => event_server_url, |
+      "data-hostname" => host_name_by_slide(@slide), |
+      "data-channel" => channel_by_slide(@slide)}
+    = stylesheet_link_tag "slide"
+    = stylesheet_link_tag "jquery.gritter"
+    = javascript_include_tag "streaming"
+    = javascript_include_tag event_server_js_file
+
+  #loading
+    %img#loading_icon{src: image_path("loading.gif"), width: "60px", height: "60px"}
+
+  = render "slide"
+  = render "controller"
+
+:javascript
+  (function($) {
+    function init_all() {
+      var slideInfo = $("#slide_info");
+      var slideImagePrefix = slideInfo.data("prefix");
+      var slideImageSuffix = slideInfo.data("suffix");
+      var slideImageNum = slideInfo.data("totalpage");
+
+      if (SlidePlayer && StreamingController) {
+        window.player = new SlidePlayer(slideImagePrefix, slideImageSuffix, slideImageNum);
+        window.player.preload();
+
+        streamingController = new StreamingController()
+        streamingController.binding();
+      }
+    }
+
+    $(window).bind('page:change', init_all);
+    $(document).ready(init_all);
+  })(jQuery);

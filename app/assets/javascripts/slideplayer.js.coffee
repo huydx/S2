@@ -98,11 +98,13 @@ class StreamingController
     subscribe_button_name = ".subscribe_button"
     drawing_button_name = ".drawing_button"
     clear_button_name = ".clear_button"
+    ask_question = ".ask_question"
 
     @streaming_button = $(streaming_button_name)
     @$subscribe_button = $(subscribe_button_name)
     @drawing_button = $(drawing_button_name)
     @clear_button = $(clear_button_name)
+    @ask_question_button = $(ask_question)
 
     @streaming_button_pressed = false
     @subscribe_button_pressed = false
@@ -179,6 +181,10 @@ class StreamingController
 
     @clear_button.on "click", (e) =>
       window.drawer.clear() if window.drawer
+      e.preventDefault()
+
+    @ask_question_button.on "click", (e) =>
+      $.colorbox({href: "/question/ask_page?slideId=" + @slideId})
       e.preventDefault()
 
 window.StreamingController = StreamingController

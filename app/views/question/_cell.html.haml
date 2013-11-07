@@ -17,8 +17,9 @@
     %tr
       %td.votecell
       %td.answercell
-        %div{id: "#answer-#{question.answer.id}"}
-        %table
-          %tr
-            %td
-              = question.answer.content
+        - if question.answer
+          %div{id: "#answer-#{question.answer.id}"}
+          %table
+            %tr
+              %td
+                = question.answer.content

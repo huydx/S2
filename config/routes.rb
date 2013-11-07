@@ -11,7 +11,7 @@ S2::Application.routes.draw do
   controller :streaming do
     get "streaming/search" => :search
     get "streaming/:id" => :index, as: :index
-    get "streaming/:id/client" => :index
+    get "streaming/:id/client" => :client
     post "streaming/register" => :register_channel
     post "streaming/remove" => :remove_channel
   end
@@ -19,6 +19,9 @@ S2::Application.routes.draw do
   controller :question do
     get ":id/question" => :index
     post "question/vote" => :vote
+    get "question/ask_page" => :ask_page
+    post "question/ask_post" => :ask_post
+    post "question/add_answer" => :add_answer
   end
 
   resources :users, only: [:show]

@@ -38,4 +38,13 @@ module StreamingHelper
   def channel
     "/#{current_user_name}"
   end
+
+  def host_name_by_slide(slide)
+    $redis.get "streaming:#{slide_id(slide)}"
+  end
+
+  def channel_by_slide(slide)
+    host_name = host_name_by_slide(slide)
+    "/#{host_name}"
+  end
 end

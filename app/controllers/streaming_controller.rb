@@ -9,18 +9,20 @@ class StreamingController < ApplicationController
   end
 
   def search
-    channel = params[:channel] 
+    channel = params[:channel]
+    channel = channel[0] == "/" ? channel : "/#{channel}"
     message_content = 'params error' and message_type = 'error' unless channel
     
-    channel_info = eval($redis.get(channel)) rescue nil
-    message_content = 'channel not found' and message_type = 'error' unless channel_info
+    @channel_info = eval($redis.get(channel)) rescue nil
+    message_content = 'channel not found' and message_type = 'error' unless @channel_info
     
-    return_hash = channel_info.nil? ? 
+    return_hash = @channel_info.nil? ? 
       {message_type: message_type, message_content: message_content} : 
-      {message_type: "sucess", message_content: [channel_info]}
-
+      {message_type: "sucess", message_content: [@channel_info]}
+    
     respond_to do |format|
       format.json { render json: return_hash.to_json }
+      format.html { render "search" }
     end
   end
  
@@ -32,6 +34,7 @@ class StreamingController < ApplicationController
     slide_info = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true)
     save_slide_info = make_save_object(channel, slide_info)
     $redis.set(channel, save_slide_info)
+    $redis.set("streaming:#{slide_id}", current_user.username)
 
     render nothing: true, status: 200
   end
@@ -45,7 +48,8 @@ class StreamingController < ApplicationController
   end
 
   def client
-
+    slide_id = params[:id]
+    @slide = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true) 
   end
 
   private
