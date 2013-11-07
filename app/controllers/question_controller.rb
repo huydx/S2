@@ -1,7 +1,17 @@
 class QuestionController < ApplicationController
   def index
+    api_instance = SlideShare::Base.new(
+      api_key: ENV['API_KEY'], 
+      shared_secret: ENV['SHARED_SECRET']
+    )
+
     slide_id = params[:id]
+    slide_info = api_instance.slideshows.find(slide_id)
+    slide_owner = slide_info["Slideshow"]["Username"] rescue ""
+
     @questions = Question.where(slide_id: slide_id)
+    @editable = slide_owner == current_user.username
+
     if @questions.length >= 2
       @questions.sort! do |q1, q2|
         vote_q1 = $redis.get redis_vote_key_with_parms(slide_id, q1.id)
