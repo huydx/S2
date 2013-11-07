@@ -1,6 +1,7 @@
 @import "mixins";
 
-$width: 900px;
+$width: 800px;
+$progress-bar-width: 700px;
 
 #player_container {
   position: relative;
@@ -68,7 +69,7 @@ $width: 900px;
 .player_progress_container {
   float: left;
   height: 10px;
-  width: 800px;
+  width: $progress-bar-width;
   @include border-radius(10px);
   margin: 12px 0px;
   background: #000000;
