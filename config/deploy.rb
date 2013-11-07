@@ -29,7 +29,7 @@ set :unicorn_config,  "config/unicorn.rb"
 # for Unicorn
 namespace :deploy do
   task :start, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && bundle exec sudo unicorn_rails -c #{unicorn_config} -E #{rails_env} -D"
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{unicorn_config} -E #{rails_env} -D"
   end
 
   task :stop do
