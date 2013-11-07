@@ -14,7 +14,7 @@
       .navbar-inner
         .container
           - if user_signed_in?
-            = link_to "S2", home_index_path, class: :brand
+            = link_to image_tag('app_logo.png'), home_index_path, class: :brand
           - else
             = link_to "S2", root_path, class: :brand
           %form#search-form{action: "/streaming/search"}

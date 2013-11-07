@@ -9,9 +9,12 @@
   letter-spacing: -0.05em;
 }
 
+.brand img {
+  height: 100%;
+}
+
 .navbar{
   .container {
-    display: inline;
   }
 
   background-color: #444444;
@@ -22,14 +25,15 @@
     color: #CCCCCC;
     line-height: 48px;
   }
-  
+
   #search-form {
     width: 300px;
     float: left;
-    padding: 5px, 5px, 5px, 5px;
+    margin-top: 8px;
 
     #search-input {
       width: 200px;
+      border: 0 !important;
     }
   }
 }
