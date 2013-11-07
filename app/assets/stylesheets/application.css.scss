@@ -13,3 +13,9 @@
  */
 @import "flat-ui";
 @import "twitter/bootstrap";
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: transparent !important;
+}
+
+

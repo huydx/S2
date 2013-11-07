@@ -13,8 +13,12 @@
               %p Click Here!! Show Movie!!
         .btn-wrapper
           =link_to "Sign in",  new_user_session_path, class: "btn btn-large btn-wide"
+        .mobile-app-store
+          =link_to "#" do
+            =image_tag "android-available.png", class: "android-store app-store"
           =link_to "https://itunes.apple.com/us/app/sslide/id730948724?ls=1&mt=8" do
-            =image_tag "app_store.png", class: "app-store"
+            =image_tag "ios-available.png", class: "app-store"
+
         %p.screen-text
           A
           %span presentation
