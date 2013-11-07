@@ -17,6 +17,8 @@
             = link_to "S2", home_index_path, class: :brand
           - else
             = link_to "S2", root_path, class: :brand
+          %form#search-form{action: "/streaming/search"}
+            %input.form-control#search-input{name: 'channel', type: "text", "placeholder" => "Search.."}
           %ul.nav.navbar-nav.pull-right.active
             - if user_signed_in?
               %li= current_user.username

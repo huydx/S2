@@ -11,9 +11,8 @@ class AnswerController < ApplicationController
     answer = Question.find(question_id).answer
 
     answer = answer.nil? ? 
-      Answer.create(content: params["question-content"]) :
-      answer.update(content: params["question-content"])
-
+      Answer.create(content: params["answer-content"], question_id: question_id) :
+      answer.update(content: params["answer-content"])
     render js: "location.reload();"
   end
 end
