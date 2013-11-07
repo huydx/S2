@@ -10,9 +10,10 @@
       %td.postcell
         .post-text
           = question.content
-      %td.extra
-        .extrabutton
-          %a.addanswer{href: "#"}
+      - if @editable
+        %td.extra
+          .extrabutton
+            %a.addanswer{href: "#"}
         
     %tr
       %td.votecell
