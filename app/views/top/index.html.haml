@@ -2,11 +2,6 @@
   .container
     .main
       .col-md-4.side-content
-        %p.screen-text
-          A
-          %span presentation
-          tool
-          %span innovation
         .span
           =image_tag "app_logo.png", class: :logo
         .youtube-wrapper
@@ -18,6 +13,13 @@
               %p Click Here!! Show Movie!!
         .btn-wrapper
           =link_to "Sign in",  new_user_session_path, class: "btn btn-large btn-wide"
+          =link_to "https://itunes.apple.com/us/app/sslide/id730948724?ls=1&mt=8" do
+            =image_tag "app_store.png", class: "app-store"
+        %p.screen-text
+          A
+          %span presentation
+          tool
+          %span innovation
       .col-md-8
         =image_tag "imac.png", class: :imac
         =image_tag "iphone.png", class: :iphone
