@@ -14,6 +14,11 @@ body {
   zoom: 1.3;
 }
 
+.app-store {
+  margin-top: 10px;
+  zoom: 0.5;
+}
+
 section#home {
   height: 750px;
   width: 1280px;
@@ -41,7 +46,7 @@ section#home {
       .screen-text {
         position: relative;
         font-size: 21px;
-        top: 134px;
+        top: -175px;
         left: 453px;
         z-index: 10;
       }
