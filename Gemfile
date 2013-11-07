@@ -17,6 +17,11 @@ gem "devise"
 gem "redis"
 gem "flat-ui-rails"
 gem 'colorbox-rails'
+gem "unicorn"
+gem "capistrano"
+gem "rvm-capistrano"
+gem "capistrano-ext"
+gem "capistrano_colors"
 
 group :doc do
   gem 'sdoc', require: false
