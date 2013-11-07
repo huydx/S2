@@ -7,9 +7,9 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: s2_development 
+  database: s2_development
   username: root
-  password: 
+  password:
   socket: /tmp/mysql.sock
   pool: 5
   timeout: 5000
@@ -23,7 +23,7 @@ test:
   reconnect: false
   database: s2_test
   username: root
-  password: 
+  password:
   socket: /tmp/mysql.sock
   pool: 5
   timeout: 5000
@@ -34,7 +34,7 @@ production:
   reconnect: false
   database: s2_production
   username: root
-  password: 
-  socket: /tmp/mysql.sock
+  password:
+  socket: /var/lib/mysql/mysql.sock
   pool: 5
   timeout: 5000
