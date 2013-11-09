@@ -15,12 +15,24 @@ body {
 }
 
 .logo {
-  margin: -10px 0 20px 0;
+  margin: -15px 0 20px 0;
+}
+
+.mobile-app-store {
+  margin-top: 50px;
 }
 
 .app-store {
-  margin-top: 10px;
+  margin: 10px 0 0 20px;
   zoom: 0.5;
+}
+
+.android-store {
+  opacity: 0.3;
+}
+
+.col-md-8 {
+  margin-left: -20px;
 }
 
 section#home {
@@ -50,7 +62,7 @@ section#home {
       .screen-text {
         position: relative;
         font-size: 21px;
-        top: -175px;
+        top: -200px;
         left: 453px;
         z-index: 10;
       }

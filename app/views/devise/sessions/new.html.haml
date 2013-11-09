@@ -2,7 +2,7 @@
 .login-screen
   %h2 サインイン
   .login-icon
-    =image_tag "logo.png", class: :logo
+    =image_tag "app_logo.png", class: :logo
     %h5 Welcome to SSlide
   = form_for resource, as: resource_name, url: session_path(resource_name), html: {class: "login-form"}  do |f|
     .form-group.has-success
