@@ -8,8 +8,8 @@
     .form-group.has-success
       = flash[:notice]
     .form-group
-      = f.text_field :username, :autofocus => true, :class => "form-control login-field", :placeholder => "Enter your email"
+      = f.text_field :username, :autofocus => true, :class => "form-control login-field", :placeholder => "Enter your slideshare account name"
     .form-group
-      = f.password_field :password, :class => "form-control login-field", :placeholder => "Enter your password"
+      = f.password_field :password, :class => "form-control login-field", :placeholder => "Enter your slideshare password"
     .btn-submit
       = f.submit "Sign in", class: "btn btn-info"
