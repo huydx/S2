@@ -1,6 +1,6 @@
 class StreamingController < ApplicationController
   before_action :set_up_api
-  before_action :require_user, except: [:register_channel, :search, :remove_channel]
+  before_action :require_user, except: [:register_channel, :search, :remove_channel, :client]
   protect_from_forgery except: [:register_channel, :remove_channel]
   
   def index

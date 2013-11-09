@@ -18,6 +18,7 @@ pickle-email-*.html
 .project
 /config/database.yml
 *.DS_Store
+/public/assets/
 
 *.swo
 *.swp
