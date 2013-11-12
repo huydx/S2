@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/huydx/dotenv.git
+  revision: 675471ab43d4f7537ef94589811214bb9642f278
+  specs:
+    dotenv (0.9.0)
+    dotenv-rails (0.9.0)
+      dotenv (= 0.9.0)
+
+GIT
   remote: git://github.com/huydx/slideshare.git
   revision: 520f1b2d3bafcd1138e72f6f5f8680d2983d9a89
   specs:
@@ -80,9 +88,6 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    dotenv (0.9.0)
-    dotenv-rails (0.9.0)
-      dotenv (= 0.9.0)
     erubis (2.7.0)
     execjs (2.0.2)
     flat-ui-rails (0.0.2)
@@ -214,7 +219,7 @@ DEPENDENCIES
   colorbox-rails
   debugger
   devise
-  dotenv-rails
+  dotenv-rails!
   flat-ui-rails
   haml (>= 3.1.6)
   haml-rails (>= 0.3.4)

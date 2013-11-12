@@ -11,7 +11,7 @@ gem "haml-rails", ">= 0.3.4", :group => :development
 gem 'slideshare', git: 'git://github.com/huydx/slideshare.git'
 gem 'mysql2'
 gem 'sextant'
-gem 'dotenv-rails'
+gem 'dotenv-rails', git: 'git://github.com/huydx/dotenv.git'
 gem 'anjlab-bootstrap-rails', '~> 3.0.0.3', :require => 'bootstrap-rails'
 gem "devise"
 gem "redis"
