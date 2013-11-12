@@ -51,11 +51,11 @@ $progress-bar-width: 700px;
 }
 
 .prev {
-  background: url("/assets/prev.png") 10px 10px no-repeat;
+  background: image-url("prev.png") 10px 10px no-repeat;
 }
 
 .next {
-  background: url("/assets/next.png") 10px 10px no-repeat;
+  background: image-url("next.png") 10px 10px no-repeat;
 }
 
 #fullscreen_btn {
@@ -63,7 +63,7 @@ $progress-bar-width: 700px;
   width: 30px;
   height: 30px;
   cursor: pointer;
-  background: url("/assets/fullscreen-btn.png") 5px 6px no-repeat;
+  background: image-url("fullscreen-btn.png") 5px 6px no-repeat;
 }
 
 .player_progress_container {
