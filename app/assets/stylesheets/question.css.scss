@@ -4,7 +4,7 @@
   font-weight: normal;
 
   .vote-up-on {
-    background-image: url("/assets/sprites.png");
+    background-image: image-url("sprites.png");
     background-repeat: no-repeat;
     background-position: 0px -230px;
     display:block;
@@ -14,7 +14,7 @@
   }
 
   .vote-up-off {
-    background-image: url("/assets/sprites.png");
+    background-image: image-url("sprites.png");
     background-repeat: no-repeat;
     background-position: 0px -265px;
     display:block;
@@ -22,7 +22,7 @@
     width: 41px;
     height: 25px;
   }
-    
+
   .vote-count-post {
     background-image: none;
     font-size: 24px;
@@ -30,7 +30,7 @@
   }
 
   .vote-down-off {
-    background-image: url("/assets/sprites.png");
+    background-image: image-url("sprites.png");
     background-repeat: no-repeat;
     background-position: 0px -300px;
     display:block;
@@ -40,7 +40,7 @@
   }
 
   .vote-down-on {
-    background-image: url("/assets/sprites.png");
+    background-image: image-url("sprites.png");
     background-repeat: no-repeat;
     background-position: 0px -335px;
     display:block;
@@ -56,7 +56,7 @@
   width: 100px;
 
   .addanswer {
-    background-image: url("/assets/sprites.png");
+    background-image: image-url("sprites.png");
     background-repeat: no-repeat;
     background-position: 0px -640px;
     margin: 0 auto;
