@@ -185,7 +185,6 @@ class StreamingController
 
     @ask_question_button.on "click", (e) =>
       pageNum = window.player.currentPage #TODO: when deal with module which need to ref to each other,what is the best design
-      console.log(pageNum)
       $.colorbox({href: "/question/ask_page?slideId=" + @slideId + "&slidePageNum=" + pageNum})
       e.preventDefault()
 

@@ -1,6 +1,4 @@
 module QuestionHelper
-  include StreamingHelper #not good but we need to reuse some function
-
   def already_voted(slide_id, question_id)
     key = "vote:"\
       "#{slide_id}:"\
