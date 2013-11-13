@@ -5,7 +5,7 @@ class StreamingController < ApplicationController
   
   def index
     slide_id = params[:id]
-    @slide = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true) 
+    @slide = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true)
   end
 
   def search
@@ -53,13 +53,6 @@ class StreamingController < ApplicationController
   end
 
   private
-  def set_up_api
-    @api_instance = SlideShare::Base.new(
-      api_key: ENV['API_KEY'], 
-      shared_secret: ENV['SHARED_SECRET']
-    )
-  end
-
   def make_save_object(channel, slide_info)
     general_info = slide_info[:info]["Slideshow"]
     image_info = slide_info[:image_info]

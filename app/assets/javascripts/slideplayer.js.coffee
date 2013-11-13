@@ -184,7 +184,8 @@ class StreamingController
       e.preventDefault()
 
     @ask_question_button.on "click", (e) =>
-      $.colorbox({href: "/question/ask_page?slideId=" + @slideId})
+      pageNum = window.player.currentPage #TODO: when deal with module which need to ref to each other,what is the best design
+      $.colorbox({href: "/question/ask_page?slideId=" + @slideId + "&slidePageNum=" + pageNum})
       e.preventDefault()
 
 window.StreamingController = StreamingController

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131023120055) do
+ActiveRecord::Schema.define(version: 20131113122145) do
 
   create_table "answers", force: true do |t|
     t.integer  "question_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20131023120055) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "host_name"
+    t.integer  "slide_page_num"
   end
 
   create_table "users", force: true do |t|

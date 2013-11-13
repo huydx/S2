@@ -8,7 +8,7 @@
             = vote_count(@slide_id, question.id)
           %a.vote-down{href: "#", class: vote_down_class(@slide_id, question.id)}
       %td.postcell
-        .post-text
+        %a.post-text{"data-slide-num" => question.slide_page_num.to_i, href: "#"}
           = question.content
       - if @editable
         %td.extra

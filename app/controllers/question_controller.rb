@@ -1,4 +1,6 @@
 class QuestionController < ApplicationController
+  before_action :set_up_api
+
   def index
     api_instance = SlideShare::Base.new(
       api_key: ENV['API_KEY'], 
@@ -19,8 +21,7 @@ class QuestionController < ApplicationController
         vote_q2.to_i <=> vote_q1.to_i
       end
     end
-
-    @slide_id = params[:id]
+    @slide = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true) rescue nil
   end
   
   def create; end
@@ -44,15 +45,19 @@ class QuestionController < ApplicationController
 
   def ask_page
     @slide_id = params['slideId']
+    @slide_page_num = params['slidePageNum']
     render layout: false
   end
 
   def ask_post
     question_payload = make_question_payload(params['question-content']) 
     channel = make_channel(params['slide-id'])    
+    slide_page_num = params['slide-page-num']    
     
-    save_db(params['slide-id'], params['question-content'])
-    broadcast(channel, question_payload)
+    unless params['question-content'].blank?
+      save_db
+      broadcast(channel, question_payload)
+    end
 
     render js: "$.colorbox.close()"
   rescue Exception
@@ -120,11 +125,15 @@ class QuestionController < ApplicationController
     "#{ENV['EVENT_SERVER']}faye"
   end
 
-  def save_db(slide_id, question_content)
+  def save_db
+    slide_id, question_content, page_num = 
+      params['slide-id'], params['question-content'], params['slide-page-num'].to_i
+
     Question.create(
       slide_id: slide_id, 
       content: question_content,
-      ask_user: current_user.username
+      ask_user: current_user.username,
+      slide_page_num: page_num
     )
   end
 end
