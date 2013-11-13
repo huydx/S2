@@ -1,4 +1,5 @@
 = form_tag question_ask_post_path, remote: true do
   = hidden_field_tag 'slide-id', @slide_id
-  = text_area_tag 'question-content', @answer_content
+  = hidden_field_tag 'slide-page-num', @slide_page_num
+  = text_area_tag 'question-content'
   = button_tag "Submit", data: {"disable_width" => "Please wait.."}, class: "btn btn-primary btn-block"

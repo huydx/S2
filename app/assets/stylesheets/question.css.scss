@@ -1,3 +1,5 @@
+
+
 .vote {
   overflow: hidden;
   text-align: center;
@@ -66,4 +68,24 @@
   }
 }
 
+.question_page_left_col {
+  float: left;
+  height: 100%;
+  width: 50%;
+}
 
+.question_page_right_col {
+  float: right;
+  height: 100%;
+  width: 50%;
+  background-color: rgb(85, 85, 85);
+}
+
+#player-container {
+  #current_slide {
+    margin: auto auto auto auto;
+    width: 100%;
+    left: 0;
+    top: 0;
+  }
+}

@@ -1,10 +1,28 @@
-%meta{id: "page-info", "data-slide-id" => @slide_id}
-- @questions.each do |question|
-  .question{id: question.id, "data-id" => question.id}
-    = render "cell", question: question
+%meta{id: "slide_info", |
+      "data-prefix" => prefix(@slide), |
+      "data-suffix" => suffix(@slide), |
+      "data-totalpage" => pages(@slide), |
+      "data-id" => slide_id(@slide)}
+
+.question_page_left_col
+  - @questions.each do |question|
+    .question{id: question.id, "data-id" => question.id}
+      = render "cell", question: question
+.question_page_right_col
+  = render "slide"
+
 
 :javascript
   (function($) {
+    var slideInfo = $("#slide_info");
+    var slideId = slideInfo.data("id");
+    var slideImagePrefix = slideInfo.data("prefix");
+    var slideImageSuffix = slideInfo.data("suffix");
+    var slideImageNum = slideInfo.data("totalpage");
+
+    window.player = new SlidePlayer(slideImagePrefix, slideImageSuffix, slideImageNum);
+    window.player.preload();
+
     $(".addanswer").on("click", function(e){
       var questionId = $(this).closest(".question").data("id");
       $.colorbox({href: "/answer/index?questionId="+questionId});
@@ -51,5 +69,11 @@
         that.removeClass("vote-down-off");
         that.addClass("vote-down-on");
       });
+    });
+
+    $(".post-text").on("click", function(e) {
+      if(window.player) {
+        window.player.gotoPage(parseInt($(this).data("slide-num")));
+      } 
     });
   })(jQuery);

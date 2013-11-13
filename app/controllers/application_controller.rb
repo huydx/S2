@@ -33,5 +33,11 @@ class ApplicationController < ActionController::Base
       format.all { render nothing: true, status: 403 }
     end
   end
-
+  
+  def set_up_api
+    @api_instance = SlideShare::Base.new(
+      api_key: ENV['API_KEY'], 
+      shared_secret: ENV['SHARED_SECRET']
+    )
+  end
 end
