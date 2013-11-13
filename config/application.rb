@@ -8,6 +8,7 @@ Bundler.require(:default, Rails.env)
 
 module S2
   class Application < Rails::Application
+    config.assets.precompile += %w( *.js jquery.gritter.css _mixins.css answer.css home.css main.css question.css sign_in.css slide.css streaming.css top.css )
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
