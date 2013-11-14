@@ -45,6 +45,6 @@ module ApplicationHelper
 
   def channel_by_slide(slide)
     host_name = host_name_by_slide(slide)
-    "/#{host_name}"
+    host_name[0] == "/" ? host_name : "/#{host_name}"
   end
 end

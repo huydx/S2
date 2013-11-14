@@ -54,7 +54,7 @@ class StreamingController < ApplicationController
 
   def client
     slide_id = params[:id]
-    @slide = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true) 
+    @slide = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true)
   end
 
   private
