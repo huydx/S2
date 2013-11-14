@@ -108,10 +108,11 @@ class QuestionController < ApplicationController
   def make_question_payload
     content = params['question-content']
     page_num = params['slide-page-num'].to_i
+    ask_user_name = current_user.username rescue ""
 
     {
      'messageType' => 'question',
-     'messageOwner' => current_user.username,
+     'messageOwner' => ask_user_name,
      'messageExtra' => 
      {
         'content' => content,
