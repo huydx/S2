@@ -90,16 +90,23 @@ section#home {
         padding-top: 10px;
 
         .youtube {
-          width: 60px;
-          height: 50px;
+          background-image: image-url("youtube.png");
+          width: 64px;
+          height: 70px;
+        }
+
+        .youtube:hover {
+          background-image: image-url("youtube-hover.png");
+          width: 64px;
+          height: 70px;
         }
 
         .box {
-          padding-top: 16px;
+          padding-top: 25px;
           padding-left: 8px;
           position: relative;
           background: #ccc;
-          height: 50px;
+          height: 70px;
           width: 178px;
           margin-bottom: 20px;
           border-radius: 4px;
