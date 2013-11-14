@@ -148,7 +148,8 @@ class QuestionController < ApplicationController
 
   def make_questions_hash(questions)
     questions.map do |question|
-      { content: question.content,
+      { questionId: question.id,
+        content: question.content,
         askUser: question.ask_user,
         pageNum: question.slide_page_num.to_i,
         voteNum: vote_count(question.slide_id, question.id) }
