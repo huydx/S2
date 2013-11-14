@@ -48,6 +48,7 @@
         that.removeClass("vote-up-off");
         that.addClass("vote-up-on");
       });
+      e.preventDefault();
     });
     
     $(".vote-down").on("click", function(e){
@@ -69,11 +70,13 @@
         that.removeClass("vote-down-off");
         that.addClass("vote-down-on");
       });
+      e.preventDefault();
     });
 
     $(".post-text").on("click", function(e) {
       if(window.player) {
         window.player.gotoPage(parseInt($(this).data("slide-num")));
       } 
+      e.preventDefault();
     });
   })(jQuery);
