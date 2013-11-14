@@ -12,18 +12,17 @@ class QuestionController < ApplicationController
     slide_id = params[:id]
     slide_info = api_instance.slideshows.find(slide_id)
     slide_owner = slide_info["Slideshow"]["Username"] rescue ""
-
-    @questions = Question.where(slide_id: slide_id)
     @editable = slide_owner == current_user.username
-
-    if @questions.length >= 2
-      @questions.sort! do |q1, q2|
-        vote_q1 = $redis.get redis_vote_key_with_parms(slide_id, q1.id)
-        vote_q2 = $redis.get redis_vote_key_with_parms(slide_id, q2.id)
-        vote_q2.to_i <=> vote_q1.to_i
-      end
-    end
+    @questions = all_questions_from_db(slide_id)
+    
     @slide = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true) rescue nil
+  end
+
+  def all
+    questions = all_questions_from_db(params[:id])
+    respond_to do |format|
+      format.json { render json: make_questions_hash(questions) }
+    end
   end
   
   def create; end
@@ -78,21 +77,18 @@ class QuestionController < ApplicationController
   end
 
   private
-  def redis_vote_key_with_parms(slide_id, question_id)
+  def redis_vote_key_with_parms(question_id)
     "vote:"\
-    "#{slide_id}:"\
     "#{question_id}"
   end
 
   def redis_vote_key
     "vote:"\
-    "#{params['slide_id']}:"\
     "#{params['question_id']}"
   end
 
   def redis_user_voted_key
     "vote:"\
-    "#{params['slide_id']}:"\
     "#{params['question_id']}:"\
     "#{current_user.username}"
   end
@@ -144,5 +140,32 @@ class QuestionController < ApplicationController
       ask_user: user_name,
       slide_page_num: page_num
     )
+  end
+
+  def make_questions_hash(questions)
+    questions.map do |question|
+      { content: question.content,
+        askUser: question.ask_user,
+        pageNum: question.slide_page_num.to_i,
+        voteNum: vote_count(question.slide_id, question.id) }
+    end
+  end
+
+  def vote_count(slide_id, question_id)
+    key = "vote:"\
+    "#{question_id}"
+    ($redis.get key) || 0
+  end
+
+  def all_questions_from_db(slide_id)
+    questions = Question.where(slide_id: slide_id)
+
+    if questions.length >= 2
+      questions.sort! do |q1, q2|
+        vote_q1 = $redis.get redis_vote_key_with_parms(q1.id)
+        vote_q2 = $redis.get redis_vote_key_with_parms(q2.id)
+        vote_q2.to_i <=> vote_q1.to_i
+      end
+    end
   end
 end

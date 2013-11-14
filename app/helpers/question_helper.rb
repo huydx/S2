@@ -1,7 +1,6 @@
 module QuestionHelper
   def already_voted(slide_id, question_id)
     key = "vote:"\
-      "#{slide_id}:"\
       "#{question_id}:"\
       "#{current_user.username}"
     $redis.get key
@@ -9,7 +8,6 @@ module QuestionHelper
 
   def vote_count(slide_id, question_id)
     key = "vote:"\
-    "#{slide_id}:"\
     "#{question_id}"
     ($redis.get key) || 0
   end
