@@ -34,7 +34,12 @@ class StreamingController < ApplicationController
     slide_info = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true)
     save_slide_info = make_save_object(channel, slide_info)
     $redis.set(channel, save_slide_info)
-    $redis.set("streaming:#{slide_id}", current_user.username)
+
+    if current_user
+      $redis.set("streaming:#{slide_id}", current_user.username) #pc
+    else
+      $redis.set("streaming:#{slide_id}", channel) #ios
+    end
 
     render nothing: true, status: 200
   end
