@@ -118,7 +118,7 @@ class QuestionController < ApplicationController
   
   def make_channel(slide_id)
     host_name = $redis.get("streaming:#{slide_id}")
-    "/#{host_name}"
+    host_name[0] == "/" ? host_name : "/#{host_name}"
   end
 
   def event_server
