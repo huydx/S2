@@ -50,7 +50,7 @@ class QuestionController < ApplicationController
   end
 
   def ask_post
-    question_payload = make_question_payload(params['question-content']) 
+    question_payload = make_question_payload
     channel = make_channel(params['slide-id'])    
     slide_page_num = params['slide-page-num']    
     
@@ -104,14 +104,17 @@ class QuestionController < ApplicationController
     Net::HTTP.post_form(uri, message: mes.to_json)
   end
 
-  def make_question_payload(content)
+  def make_question_payload
+    content = params['question-content']
+    page_num = params['slide-page-num'].to_i
     {
      'messageType' => 'question',
      'messageOwner' => current_user.username,
      'messageExtra' => 
      {
         'content' => content,
-        'title' => ''
+        'title' => '',
+        'pageNum' => pageNum
      }
     }
   end
