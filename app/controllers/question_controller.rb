@@ -63,7 +63,7 @@ class QuestionController < ApplicationController
 
     render js: "$.colorbox.close()"
   rescue Exception => e
-    binding.pry
+    puts e
     render nothing: true
   end
   
@@ -136,11 +136,12 @@ class QuestionController < ApplicationController
   def save_db
     slide_id, question_content, page_num = 
       params['slide-id'], params['question-content'], params['slide-page-num'].to_i
+    user_name = current_user.username rescue ""
 
     Question.create(
       slide_id: slide_id, 
       content: question_content,
-      ask_user: current_user.username,
+      ask_user: user_name,
       slide_page_num: page_num
     )
   end
