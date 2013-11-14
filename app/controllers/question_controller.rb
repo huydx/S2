@@ -1,5 +1,7 @@
 class QuestionController < ApplicationController
   before_action :set_up_api
+  before_action :require_user, except: [:ask_post, :vote]
+  protect_from_forgery except: [:ask_post, :vote]
 
   def index
     api_instance = SlideShare::Base.new(
