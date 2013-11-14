@@ -60,7 +60,8 @@ class QuestionController < ApplicationController
     end
 
     render js: "$.colorbox.close()"
-  rescue Exception
+  rescue Exception => e
+    binding.pry
     render nothing: true
   end
   
@@ -107,6 +108,7 @@ class QuestionController < ApplicationController
   def make_question_payload
     content = params['question-content']
     page_num = params['slide-page-num'].to_i
+
     {
      'messageType' => 'question',
      'messageOwner' => current_user.username,
@@ -114,7 +116,7 @@ class QuestionController < ApplicationController
      {
         'content' => content,
         'title' => '',
-        'pageNum' => pageNum
+        'pageNum' => page_num
      }
     }
   end
