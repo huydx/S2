@@ -15,11 +15,11 @@ body {
 }
 
 .logo {
-  margin: -15px 0 20px 0;
+  margin: 9px 0 20px 0;
 }
 
 .mobile-app-store {
-  margin-top: 50px;
+  margin-top: 14px;
 }
 
 .app-store {
@@ -63,7 +63,7 @@ section#home {
         position: relative;
         font-size: 21px;
         top: -200px;
-        left: 453px;
+        left: 427px;
         z-index: 10;
       }
 
@@ -90,23 +90,24 @@ section#home {
         padding-top: 10px;
 
         .youtube {
+          zoom: 0.75;
           background-image: image-url("youtube.png");
           width: 64px;
-          height: 70px;
+          height: 69px;
         }
 
         .youtube:hover {
           background-image: image-url("youtube-hover.png");
           width: 64px;
-          height: 70px;
+          height: 69px;
         }
 
         .box {
-          padding-top: 25px;
+          padding-top: 16px;
           padding-left: 8px;
           position: relative;
           background: #ccc;
-          height: 70px;
+          height: 50px;
           width: 178px;
           margin-bottom: 20px;
           border-radius: 4px;
