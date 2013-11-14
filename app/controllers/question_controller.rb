@@ -59,8 +59,12 @@ class QuestionController < ApplicationController
       save_db
       broadcast(channel, question_payload)
     end
-
-    render js: "$.colorbox.close()"
+    
+    respond_to do |format|
+      format.json { render json: {message_type: "sucess"} }
+      format.html { render js: "$.colorbox.close()" }
+      format.js { render js: "$.colorbox.close()" }
+    end
   rescue Exception => e
     puts e
     render nothing: true
