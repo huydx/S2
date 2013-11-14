@@ -1,6 +1,6 @@
 class QuestionController < ApplicationController
   before_action :set_up_api
-  before_action :require_user, except: [:ask_post, :vote]
+  before_action :require_user, except: [:ask_post, :vote, :all]
   protect_from_forgery except: [:ask_post, :vote]
 
   def index
