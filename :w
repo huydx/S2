@@ -91,19 +91,18 @@ class QuestionController < ApplicationController
     "#{params['question_id']}"
   end
 
-  def redis_user_voted_key(question_id=nil)
+  def redis_user_voted_key(question_id = nil)
     user_name = current_user.nil? ? 
       params["user_name"] :
       current_user.username
     
-    question_id = question_id.nil? ? params['question_id'] : question_id
     "vote:"\
     "#{question_id}:"\
     "#{user_name}"
   end
 
-  def already_voted?(question_id=nil)
-    $redis.get redis_user_voted_key(question_id)
+  def already_voted?
+    $redis.get redis_user_voted_key
   end
 
   def broadcast(channel, payload)
@@ -153,18 +152,12 @@ class QuestionController < ApplicationController
 
   def make_questions_hash(questions)
     questions.map do |question|
-      voted = case already_voted?(question.id)
-              when "up"; 1
-              when "down"; -1
-              else; 0
-              end
-
       { questionId: question.id,
         content: question.content,
         askUser: question.ask_user,
         pageNum: question.slide_page_num.to_i,
         voteNum: vote_count(question.slide_id, question.id),
-        alreadyVoted: voted }
+        alreadyVoted: (already_voted?) ? "true" : "false" }
     end
   end
 
