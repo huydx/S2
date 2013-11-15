@@ -184,5 +184,7 @@ class QuestionController < ApplicationController
         vote_q2.to_i <=> vote_q1.to_i
       end
     end
+
+    questions = questions.empty? ? [] : questions
   end
 end
