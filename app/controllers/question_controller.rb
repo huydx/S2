@@ -92,9 +92,13 @@ class QuestionController < ApplicationController
   end
 
   def redis_user_voted_key
+    user_name = current_user.username.nil? ? 
+      params["user_name"] :
+      current_user.username
+
     "vote:"\
     "#{params['question_id']}:"\
-    "#{current_user.username}"
+    "#{user_name}"
   end
 
   def already_voted?
