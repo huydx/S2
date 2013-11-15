@@ -91,6 +91,7 @@ GEM
     erubis (2.7.0)
     execjs (2.0.2)
     flat-ui-rails (0.0.2)
+    google-analytics-rails (0.0.4)
     haml (4.0.3)
       tilt
     haml-rails (0.4)
@@ -221,6 +222,7 @@ DEPENDENCIES
   devise
   dotenv-rails!
   flat-ui-rails
+  google-analytics-rails
   haml (>= 3.1.6)
   haml-rails (>= 0.3.4)
   jbuilder (~> 1.2)

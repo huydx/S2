@@ -8,6 +8,7 @@
     = stylesheet_link_tag controller.controller_name
     = javascript_include_tag controller.controller_name
     = stylesheet_link_tag :main
+    = analytics_init if Rails.env.production?
 
   %body
     .navbar
