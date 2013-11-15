@@ -1,4 +1,5 @@
 S2::Application.routes.draw do
+  get "manual/index"
   root "top#index"
 
   devise_for :users, controllers: {sessions: "sessions"}
