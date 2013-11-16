@@ -1,6 +1,6 @@
 SSlide
-www.sslide.net
 ==
+Source code for www.sslide.net
 
 SSlide is the service which make you share your slide in real time with ease.
 This service employ Slideshare API to get your slide, make it presentable in real-time.
