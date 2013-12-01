@@ -13,11 +13,10 @@ class S2.Views.Questions.QuestionView extends Backbone.View
     "click .vote-down" : "voteDown"
 
   render: ->
-    $(@el).html(@template(@model.toJSON()))
+    @$el.html(@template(@model.toJSON()))
     return this
 
   voteUp: (e)=>
-    that = this
     $.ajax({
         type: "POST"
         url: "/question/vote"
@@ -25,15 +24,14 @@ class S2.Views.Questions.QuestionView extends Backbone.View
           type: "up"
           question_id: @model.get("questionId"),
           slide_id : @slideId
-      }).done((msg) ->
-        $(that.el).find(".vote-count-post").html(msg.score)
-        $(that.el).find(".vote-up").removeClass("vote-up-off")
-        $(that.el).find(".vote-up").addClass("vote-up-on")
+      }).done((msg) =>
+        @$(".vote-count-post").html(msg.score)
+        @$(".vote-up").removeClass("vote-up-off")
+        @$(".vote-up").addClass("vote-up-on")
       )
     e.preventDefault()
 
   voteDown: (e)=>
-    that = this
     $.ajax({
         type: "POST"
         url: "/question/vote"
@@ -41,9 +39,9 @@ class S2.Views.Questions.QuestionView extends Backbone.View
           type: "down"
           question_id: @model.get("questionId"),
           slide_id : @slideId
-      }).done((msg) ->
-        $(that.el).find(".vote-count-post").html(msg.score)
-        $(that.el).find(".vote-down").removeClass("vote-down-off")
-        $(that.el).find(".vote-down").addClass("vote-down-on")
+      }).done((msg) =>
+        @$(".vote-count-post").html(msg.score)
+        @$(".vote-down").removeClass("vote-down-off")
+        @$(".vote-down").addClass("vote-down-on")
       )
     e.preventDefault()

@@ -6,9 +6,9 @@ class S2.Views.Questions.IndexView extends Backbone.View
   el: "#questions-list"
 
   initialize: () ->
-    @options.questions.bind('reset', @addAll)
-    @options.questions.bind('add', @render)
-    @options.questions.bind('change', @render)
+    @options.questions.on('reset', @addAll)
+    @options.questions.on('add', @render)
+    @options.questions.on('change', @render)
 
   addAll: () =>
     @options.questions.each(@addOne)
@@ -18,7 +18,7 @@ class S2.Views.Questions.IndexView extends Backbone.View
     @$el.append(view.render().el)
   
   render: =>
-    $(@el).html(@template(questions: @options.questions.toJSON() ))
+    @$el.html(@template(questions: @options.questions.toJSON() ))
     @addAll()
 
     return this
