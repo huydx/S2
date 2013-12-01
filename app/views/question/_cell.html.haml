@@ -3,10 +3,10 @@
     %tr
       %td.votecell
         .vote
-          %a.vote-up{href: "#", class: vote_up_class(@slide_id, question.id)}
+          %a.vote-up{href: "#", class: vote_up_class(question)}
           .vote-count-post
-            = vote_count(@slide_id, question.id)
-          %a.vote-down{href: "#", class: vote_down_class(@slide_id, question.id)}
+            = question.vote_count 
+          %a.vote-down{href: "#", class: vote_down_class(question)}
       %td.postcell
         %a.post-text{"data-slide-num" => question.slide_page_num.to_i, href: "#"}
           = question.content

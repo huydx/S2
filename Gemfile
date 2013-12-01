@@ -23,6 +23,8 @@ gem "rvm-capistrano"
 gem "capistrano-ext"
 gem "capistrano_colors"
 gem "google-analytics-rails"
+gem "rails-backbone"
+gem "redis-objects"
 
 group :doc do
   gem 'sdoc', require: false

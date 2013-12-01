@@ -1,0 +1,12 @@
+%table
+  %tbody
+    %tr
+      %td.votecell
+        .vote
+          %a.vote-up{href: "#", class: vote_up_class(question)}
+          .vote-count-post
+            = question.vote_count 
+          %a.vote-down{href: "#", class: vote_down_class(question)}
+      %td.postcell
+        %a.post-text{"data-slide-num" => question.slide_page_num.to_i}
+          = question.content

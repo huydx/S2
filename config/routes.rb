@@ -21,11 +21,11 @@ S2::Application.routes.draw do
     get ":id/question" => :index
     post "question/vote" => :vote
     get "question/ask_page" => :ask_page
-    post "question/ask_post" => :ask_post
-    post "question/add_answer" => :add_answer
     get ":id/question/all" => :all
   end
 
   resources :users, only: [:show]
   resources :home, only: [:index]
+  resources :question, only: [:index, :create, :destroy]
+  resources :answer, only: [:index, :create]
 end

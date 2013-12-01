@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131113122145) do
+ActiveRecord::Schema.define(version: 20131201021307) do
+
+  create_table "abcs", force: true do |t|
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "answers", force: true do |t|
     t.integer  "question_id"
@@ -25,8 +31,6 @@ ActiveRecord::Schema.define(version: 20131113122145) do
     t.string   "content"
     t.string   "ask_user"
     t.string   "host_user"
-    t.integer  "vote_up"
-    t.integer  "vote_down"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "host_name"

@@ -20,6 +20,10 @@ class Subscriber
           @current_page = pageNum
         when "draw"
           @draw message.messageExtra.pointSet
+        when "question"
+          @addQuestion(message.messageExtra)
+        when "notify"
+          @processNotification(message.messageExtra)
 
   stop: ->
     @stateOn = false
@@ -48,5 +52,17 @@ class Subscriber
       @drawer.draw (queue[3] * @drawer.canvasWidth), (@drawer.canvasHeight * (1 - queue[2])), "drag"
       @drawer.draw (queue[5] * @drawer.canvasWidth), (@drawer.canvasHeight * (1 - queue[4])), "drag"
       @drawer.draw (queue[7] * @drawer.canvasWidth), (@drawer.canvasHeight * (1 - queue[6])), "drag"
+  
+  addQuestion: (questionPayload) ->
+    model = new S2.Models.Question(questionPayload)
+    window.questionCollection.add(model)
+
+  processNotification: (notification) ->
+    if notification.has_vote
+      @resetQuestionList()
+  
+  resetQuestionList: ->
+    window.questionCollection.reset()
+    window.questionCollection.fetch()
 
 window.Subscriber = Subscriber

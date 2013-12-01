@@ -4,26 +4,29 @@
 .row
   %h1
     = title(@slide)
-    %meta{id: "slide_info", |
-      "data-prefix" => prefix(@slide), |
-      "data-suffix" => suffix(@slide), |
-      "data-totalpage" => pages(@slide), |
-      "data-id" => slide_id(@slide)}
+  %meta{id: "slide_info", |
+    "data-prefix" => prefix(@slide), |
+    "data-suffix" => suffix(@slide), |
+    "data-totalpage" => pages(@slide), |
+    "data-id" => slide_id(@slide)}
 
-    %meta{id: "streaming_info", |
-      "data-eventserver" => event_server_url, |
-      "data-hostname" => host_name_by_slide(@slide), |
-      "data-channel" => channel_by_slide(@slide)}
-    = stylesheet_link_tag "slide"
-    = stylesheet_link_tag "jquery.gritter"
-    = javascript_include_tag "streaming"
-    = javascript_include_tag event_server_js_file
-
+  %meta{id: "streaming_info", |
+    "data-eventserver" => event_server_url, |
+    "data-hostname" => host_name_by_slide(@slide), |
+    "data-channel" => channel_by_slide(@slide)}
+  = stylesheet_link_tag "slide"
+  = stylesheet_link_tag "question"
+  = stylesheet_link_tag "jquery.gritter"
+  = javascript_include_tag "streaming"
+  = javascript_include_tag event_server_js_file
   #loading
     %img#loading_icon{src: image_path("loading.gif"), width: "60px", height: "60px"}
-
-  = render "slide"
+  .client-left-col
+    = render "slide"
+  .client-right-col
+    #questions-list
   = render "controller"
+  
 
 :javascript
   (function($) {
@@ -44,4 +47,6 @@
 
     $(window).bind('page:change', init_all);
     $(document).ready(init_all);
+
+    S2.initialize();
   })(jQuery);
