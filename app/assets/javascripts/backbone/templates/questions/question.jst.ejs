@@ -1,0 +1,22 @@
+<div class="question" "data-id"=<%= questionId%> >
+  <table>
+    <tbody>
+      <tr>
+        <td class="votecell">
+          <div class="vote">
+            <a class="vote-up <%= alreadyVoted == 1 ? 'vote-up-on' : 'vote-up-off'%>" href="#"></a>
+            <div class="vote-count-post ">
+              <%= voteNum %>
+            </div>
+            <a class="vote-down <%= alreadyVoted == -1 ? 'vote-down-on' : 'vote-down-off'%>"" href="#"></a>
+          </div>
+        </td>
+        <td class="postcell">
+          <a class="post-text">
+            <%= content %>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

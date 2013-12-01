@@ -14,3 +14,6 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require colorbox-rails
+//= require underscore
+//= require backbone
+//= require backbone/s2

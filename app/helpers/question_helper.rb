@@ -1,22 +1,13 @@
 module QuestionHelper
-  def already_voted(slide_id, question_id)
-    key = "vote:"\
-      "#{question_id}:"\
-      "#{current_user.username}"
-    $redis.get key
+  def already_voted(question)
+    question.already_voted(current_user.username)
   end
 
-  def vote_count(slide_id, question_id)
-    key = "vote:"\
-    "#{question_id}"
-    ($redis.get key) || 0
+  def vote_up_class(question)
+    already_voted(question) == "up" ? "vote-up-on" : "vote-up-off"
   end
 
-  def vote_up_class(slide_id, question_id)
-    already_voted(slide_id, question_id) == "up" ? "vote-up-on" : "vote-up-off"
-  end
-
-  def vote_down_class(slide_id, question_id)
-    already_voted(slide_id, question_id) == "down" ? "vote-down-on" : "vote-down-off"
+  def vote_down_class(question)
+    already_voted(question) == "down" ? "vote-down-on" : "vote-down-off"
   end
 end

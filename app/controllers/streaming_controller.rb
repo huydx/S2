@@ -55,6 +55,7 @@ class StreamingController < ApplicationController
   def client
     slide_id = params[:id]
     @slide = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true)
+    @questions = Question.where(slide_id: slide_id)
   end
 
   private

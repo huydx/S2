@@ -1,7 +1,7 @@
 class QuestionController < ApplicationController
   before_action :set_up_api
-  before_action :require_user, except: [:ask_post, :vote, :all]
-  protect_from_forgery except: [:ask_post, :vote]
+  before_action :require_user, except: [:create, :vote, :all]
+  protect_from_forgery except: [:create, :vote]
 
   def index
     api_instance = SlideShare::Base.new(
@@ -25,38 +25,13 @@ class QuestionController < ApplicationController
     end
   end
   
-  def create; end
-
-  def vote
-    @question = Question.find(params["question_id"])
-    type = params["type"] || "up"
-    unless already_voted?
-      case type
-      when "up"
-        $redis.incr redis_vote_key
-      when "down"
-        $redis.decr redis_vote_key
-      end
-      $redis.set redis_user_voted_key, type
-      render json: {"score" => $redis.get(redis_vote_key)}.to_json
-    else 
-      render nothing: true, status: 401
-    end
-  end 
-
-  def ask_page
-    @slide_id = params['slideId']
-    @slide_page_num = params['slidePageNum']
-    render layout: false
-  end
-
-  def ask_post
-    question_payload = make_question_payload
+  def create
     channel = make_channel(params['slide-id'])    
     slide_page_num = params['slide-page-num']    
     
     unless params['question-content'].blank?
-      save_db
+      saved_question = save_db
+      question_payload = make_question_payload(saved_question)
       broadcast(channel, question_payload)
     end
     
@@ -69,28 +44,34 @@ class QuestionController < ApplicationController
     puts e
     render nothing: true
   end
-  
-  def add_answer
-    question_id = params['question-id'].to_i
-    answer = Question.find(question_id).answer
 
-    answer = answer.nil? ? 
-      Answer.create(content: params["answer-content"], question_id: question_id) :
-      answer.update(content: params["answer-content"])
-    render js: "location.reload();"
+  def vote
+    @question = Question.find(params["question_id"])
+    type = params["type"] || "up"
+    unless already_voted?
+      case type
+      when "up"; @question.vote_up.increment;
+      when "down"; @question.vote_down.increment;
+      end
+
+      channel = make_channel(params['slide_id'])
+      notify_payload = make_notify_payload({has_vote: true})
+      broadcast(channel, notify_payload)
+
+      $redis.set redis_user_voted_key, type
+      render json: {"score" => @question.vote_count}.to_json
+    else 
+      render nothing: true, status: 422
+    end
+  end 
+
+  def ask_page
+    @slide_id = params['slideId']
+    @slide_page_num = params['slidePageNum']
+    render layout: false
   end
 
   private
-  def redis_vote_key_with_parms(question_id)
-    "vote:"\
-    "#{question_id}"
-  end
-
-  def redis_vote_key
-    "vote:"\
-    "#{params['question_id']}"
-  end
-
   def redis_user_voted_key(question_id=nil)
     user_name = current_user.nil? ? 
       params["user_name"] :
@@ -112,21 +93,23 @@ class QuestionController < ApplicationController
     Net::HTTP.post_form(uri, message: mes.to_json)
   end
 
-  def make_question_payload
-    content = params['question-content']
-    page_num = params['slide-page-num'].to_i
-    ask_user_name = current_user.username rescue ""
-
-    {
-     'messageType' => 'question',
-     'messageOwner' => ask_user_name,
+  def make_question_payload(question)
+    {'messageType' => 'question',
+     'messageOwner' => question.ask_user,
      'messageExtra' => 
-     {
-        'content' => content,
-        'title' => '',
-        'pageNum' => page_num
-     }
+        { questionId: question.id,
+          content: question.content,
+          askUser: question.ask_user,
+          pageNum: question.slide_page_num.to_i,
+          voteNum: question.vote_count,
+          alreadyVoted: 0 }
     }
+  end
+
+  def make_notify_payload(options={})
+    {'messageType' => 'notify',
+     'messageOwner' => current_user.username,
+     'messageExtra' => options}
   end
   
   def make_channel(slide_id)
@@ -163,15 +146,9 @@ class QuestionController < ApplicationController
         content: question.content,
         askUser: question.ask_user,
         pageNum: question.slide_page_num.to_i,
-        voteNum: vote_count(question.slide_id, question.id),
+        voteNum: question.vote_count,
         alreadyVoted: voted }
     end
-  end
-
-  def vote_count(slide_id, question_id)
-    key = "vote:"\
-    "#{question_id}"
-    ($redis.get key) || 0
   end
 
   def all_questions_from_db(slide_id)
@@ -179,8 +156,8 @@ class QuestionController < ApplicationController
 
     if questions.length >= 2
       questions.sort! do |q1, q2|
-        vote_q1 = $redis.get redis_vote_key_with_parms(q1.id)
-        vote_q2 = $redis.get redis_vote_key_with_parms(q2.id)
+        vote_q1 = q1.vote_count 
+        vote_q2 = q2.vote_count 
         vote_q2.to_i <=> vote_q1.to_i
       end
     end
