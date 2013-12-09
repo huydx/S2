@@ -92,15 +92,20 @@ class StreamingController
     streaming_info = $("#streaming_info")
     @event_server_url = streaming_info.data("eventserver")
     @streaming_host = streaming_info.data("hostname")
+    @server_ip = streaming_info.data("serverip")
     @channel = streaming_info.data("channel")
 
     streaming_button_name = ".streaming_button"
+    audio_transmit_button_name = ".audio_transmit_button"
+    audio_recept_button_name = ".audio_recept_button"
     subscribe_button_name = ".subscribe_button"
     drawing_button_name = ".drawing_button"
     clear_button_name = ".clear_button"
     ask_question = ".ask_question"
 
     @streaming_button = $(streaming_button_name)
+    @$audio_transmit_button = $(audio_transmit_button_name)
+    @$audio_recept_button = $(audio_recept_button_name)
     @$subscribe_button = $(subscribe_button_name)
     @drawing_button = $(drawing_button_name)
     @clear_button = $(clear_button_name)
@@ -187,6 +192,30 @@ class StreamingController
       pageNum = window.player.currentPage #TODO: when deal with module which need to ref to each other,what is the best design
       $.colorbox({href: "/question/ask_page?slideId=" + @slideId + "&slidePageNum=" + pageNum})
       e.preventDefault()
+
+    @$audio_transmit_button.on "click", (e) =>
+      e.preventDefault()
+
+      if window.peer && window.peer.stateOn
+        window.peer.stop()
+        @$audio_transmit_button.find(".pressed_state").hide()
+        @$audio_transmit_button.find(".normal_state").show()
+      else
+        window.peer = new AudioTransmitter @channel, @server_ip
+        @$audio_transmit_button.find(".pressed_state").show()
+        @$audio_transmit_button.find(".normal_state").hide()
+
+    @$audio_recept_button.on "click", (e) =>
+      e.preventDefault()
+
+      if window.peer && window.peer.stateOn
+        window.peer.stop()
+        @$audio_recept_button.find(".pressed_state").hide()
+        @$audio_recept_button.find(".normal_state").show()
+      else
+        window.peer = new AudioReceptor @channel, @server_ip
+        @$audio_recept_button.find(".pressed_state").show()
+        @$audio_recept_button.find(".normal_state").hide()
 
 window.StreamingController = StreamingController
 window.SlidePlayer = SlidePlayer

@@ -2,7 +2,7 @@ module ApplicationHelper
   def title(slide)
     raw(slide[:info]["Slideshow"]["Title"])
   end
-  
+
   def slide_id(slide)
     slide[:info]["Slideshow"]["ID"]
   end
@@ -23,6 +23,10 @@ module ApplicationHelper
     slide[:image_info][:prefix]
   end
 
+  def server_ip
+    "#{ENV["SERVER_IP"]}"
+  end
+
   def event_server_url
     "#{ENV["EVENT_SERVER"]}faye"
   end
@@ -31,7 +35,7 @@ module ApplicationHelper
     "#{ENV["EVENT_SERVER"]}faye.js"
   end
 
-  def current_user_name 
+  def current_user_name
     current_user.username
   end
 
