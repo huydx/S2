@@ -12,6 +12,7 @@
 
   %meta{id: "streaming_info", |
     "data-eventserver" => event_server_url, |
+    "data-serverip" => server_ip, |
     "data-hostname" => host_name_by_slide(@slide), |
     "data-channel" => channel_by_slide(@slide)}
   = stylesheet_link_tag "slide"
@@ -19,6 +20,7 @@
   = stylesheet_link_tag "jquery.gritter"
   = javascript_include_tag "streaming"
   = javascript_include_tag event_server_js_file
+
   #loading
     %img#loading_icon{src: image_path("loading.gif"), width: "60px", height: "60px"}
   .client-left-col
@@ -26,7 +28,7 @@
   .client-right-col
     #questions-list
   = render "controller"
-  
+  %audio#audio(autoplay)
 
 :javascript
   (function($) {

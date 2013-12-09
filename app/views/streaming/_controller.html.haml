@@ -9,6 +9,15 @@
         %a.streaming_button{href: "#"}
           %img.normal_state{src: image_path("streaming.png")}
           %img.pressed_state{src: image_path("streaming_pressed.png")}
+    .audio_streaming.control_button
+      - if request.url.match "client"
+        %a.audio_recept_button{href: "#"}
+          %img.normal_state{src: image_path("mic.png")}
+          %img.pressed_state{src: image_path("mic_pressed.png")}
+      - else
+        %a.audio_transmit_button{href: "#"}
+          %img.normal_state{src: image_path("mic.png")}
+          %img.pressed_state{src: image_path("mic_pressed.png")}
     - unless request.url.match "client"
       .slide_drawing.control_button
         %a.drawing_button{href: "#"}
