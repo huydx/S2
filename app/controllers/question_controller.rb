@@ -12,7 +12,7 @@ class QuestionController < ApplicationController
     slide_id = params[:id]
     slide_info = api_instance.slideshows.find(slide_id)
     slide_owner = slide_info["Slideshow"]["Username"] rescue ""
-    @editable = slide_owner == current_user.username
+    @editable = slide_owner == username
     @questions = all_questions_from_db(slide_id)
     
     @slide = @api_instance.slideshows.find(slide_id, detailed: true, with_image: true) rescue nil
@@ -73,14 +73,10 @@ class QuestionController < ApplicationController
 
   private
   def redis_user_voted_key(question_id=nil)
-    user_name = current_user.nil? ? 
-      params["user_name"] :
-      current_user.username
-    
     question_id = question_id.nil? ? params['question_id'] : question_id
     "vote:"\
     "#{question_id}:"\
-    "#{user_name}"
+    "#{username}"
   end
 
   def already_voted?(question_id=nil)
@@ -108,7 +104,7 @@ class QuestionController < ApplicationController
 
   def make_notify_payload(options={})
     {'messageType' => 'notify',
-     'messageOwner' => current_user.username,
+     'messageOwner' => username,
      'messageExtra' => options}
   end
   
@@ -124,12 +120,11 @@ class QuestionController < ApplicationController
   def save_db
     slide_id, question_content, page_num = 
       params['slide-id'], params['question-content'], params['slide-page-num'].to_i
-    user_name = current_user.username rescue ""
 
     Question.create(
       slide_id: slide_id, 
       content: question_content,
-      ask_user: user_name,
+      ask_user: username,
       slide_page_num: page_num
     )
   end

@@ -40,4 +40,8 @@ class ApplicationController < ActionController::Base
       shared_secret: ENV['SHARED_SECRET']
     )
   end
+
+  def username
+    current_user.nil? ? (params["user_name"] || "") : current_user.username
+  end
 end
