@@ -41,6 +41,11 @@ class SlidePlayer
 
   gotoPage: (index) ->
     if index >= 1 and index <= @totalPage
+      #re-render PageLike Bar
+      if window.pageLike
+        window.pageLike.clear()
+        window.pageLike.fetch()
+
       if @images_loaded[index]
         percent = Math.round(index  * 100 / @totalPage)
         @$progress.css("width", "#{percent}%")
@@ -48,6 +53,7 @@ class SlidePlayer
         $("#current_slide").attr("src", "http://#{@slidePrefix}#{index}#{@slideSuffix}")
         for i in [1..index + PRELOAD_IMAGE_COUNT]
           @loadImage(i)
+      
 
   isImgloaded: (index) ->
     if @images_loaded?

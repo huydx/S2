@@ -155,3 +155,61 @@ $progress-bar-width: 700px;
   width: 80px;
   height: 70px;
 }
+
+.slide-extras-sparkbars {
+  height: 2px;
+  width: 500px;
+  overflow: hidden;
+
+  .slide-extras-sparkbars-like {
+    float: left;
+    height: 2px;
+    background: #2793E6;
+  }
+
+  .slide-extras-sparkbars-dislike {
+    float: left;
+    height: 2px;
+    background: #CCC;
+  }
+}
+
+.slide-extras-likes-dislikes {
+  color: #666;
+  
+  .slide-like-image {
+    position: relative;
+    vertical-align: middle;
+    top: -1px;
+    width: 13px;
+    height: 14px;
+    background: no-repeat;
+    background-image: image-url("youtube.webp");
+    background-size: 418px 544px;
+    background-position-x: -150px;
+    background-position-y: -262px;
+  }
+
+  .slide-dislike-image {
+    position: relative;
+    vertical-align: middle;
+    top: -1px;
+    width: 13px;
+    height: 14px;
+    background: no-repeat;
+    background-image: image-url("youtube.webp");
+    background-size: 418px 544px;
+    background-position-x: -24px;
+    background-position-y: -420px;
+  }
+
+  .slide-like-count {
+    color: #666;
+    text-align: right;
+  }
+
+  .slide-dislike-count {
+    color: #666;
+    text-align: right;
+  }
+}

@@ -56,6 +56,7 @@ class QuestionController < ApplicationController
 
       channel = make_channel(params['slide_id'])
       notify_payload = make_notify_payload({has_vote: true})
+  
       broadcast(channel, notify_payload)
 
       $redis.set redis_user_voted_key, type
@@ -83,12 +84,6 @@ class QuestionController < ApplicationController
     $redis.get redis_user_voted_key(question_id)
   end
 
-  def broadcast(channel, payload)
-    mes = {:channel => channel, data: payload}
-    uri = URI.parse(event_server)
-    Net::HTTP.post_form(uri, message: mes.to_json)
-  end
-
   def make_question_payload(question)
     {'messageType' => 'question',
      'messageOwner' => question.ask_user,
@@ -100,21 +95,6 @@ class QuestionController < ApplicationController
           voteNum: question.vote_count,
           alreadyVoted: 0 }
     }
-  end
-
-  def make_notify_payload(options={})
-    {'messageType' => 'notify',
-     'messageOwner' => username,
-     'messageExtra' => options}
-  end
-  
-  def make_channel(slide_id)
-    host_name = $redis.get("streaming:#{slide_id}")
-    host_name[0] == "/" ? host_name : "/#{host_name}"
-  end
-
-  def event_server
-    "#{ENV['EVENT_SERVER']}faye"
   end
 
   def save_db

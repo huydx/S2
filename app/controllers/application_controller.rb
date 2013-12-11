@@ -44,4 +44,25 @@ class ApplicationController < ActionController::Base
   def username
     current_user.nil? ? (params["user_name"] || "") : current_user.username
   end
+
+  def broadcast(channel, payload)
+    mes = {:channel => channel, data: payload}
+    uri = URI.parse(event_server)
+    Net::HTTP.post_form(uri, message: mes.to_json)
+  end
+
+  def event_server
+    "#{ENV['EVENT_SERVER']}faye"
+  end
+
+  def make_channel(slide_id)
+    host_name = $redis.get("streaming:#{slide_id}")
+    host_name[0] == "/" ? host_name : "/#{host_name}"
+  end
+
+  def make_notify_payload(options={})
+    {'messageType' => 'notify',
+     'messageOwner' => username,
+     'messageExtra' => options}
+  end
 end

@@ -28,4 +28,5 @@ S2::Application.routes.draw do
   resources :home, only: [:index]
   resources :question, only: [:index, :create, :destroy]
   resources :answer, only: [:index, :create]
+  resources :page_like, only: [:index, :create]
 end

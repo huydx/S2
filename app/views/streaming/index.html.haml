@@ -4,21 +4,22 @@
 .row
   %h1{:style=>'text-align: center; font-size: 25px;'}
     = title(@slide)
-    %meta{id: "slide_info", |
-      "data-prefix" => prefix(@slide), |
-      "data-suffix" => suffix(@slide), |
-      "data-totalpage" => pages(@slide), |
-      "data-id" => slide_id(@slide)}
+  #like-bar-view
+  %meta{id: "slide_info", |
+    "data-prefix" => prefix(@slide), |
+    "data-suffix" => suffix(@slide), |
+    "data-totalpage" => pages(@slide), |
+    "data-id" => slide_id(@slide)}
 
-    %meta{id: "streaming_info", |
-      "data-eventserver" => event_server_url, |
-      "data-serverip" => server_ip, |
-      "data-hostname" => current_user_name, |
-      "data-channel" => channel}
-    = stylesheet_link_tag "slide"
-    = stylesheet_link_tag "jquery.gritter"
-    = javascript_include_tag "streaming"
-    = javascript_include_tag event_server_js_file
+  %meta{id: "streaming_info", |
+    "data-eventserver" => event_server_url, |
+    "data-serverip" => server_ip, |
+    "data-hostname" => current_user_name, |
+    "data-channel" => channel}
+  = stylesheet_link_tag "slide"
+  = stylesheet_link_tag "jquery.gritter"
+  = javascript_include_tag "streaming"
+  = javascript_include_tag event_server_js_file
 
   #loading
     %img#loading_icon{src: image_path("loading.gif"), width: "60px", height: "60px"}

@@ -60,9 +60,15 @@ class Subscriber
   processNotification: (notification) ->
     if notification.has_vote
       @resetQuestionList()
+    if notification.has_like
+      @resetLikeBar()
   
   resetQuestionList: ->
     window.questionCollection.reset()
     window.questionCollection.fetch()
+
+  resetLikeBar: ->
+    window.pageLike.clear()
+    window.pageLike.fetch()
 
 window.Subscriber = Subscriber

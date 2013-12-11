@@ -1,5 +1,4 @@
 class S2.Models.Question extends Backbone.Model
-  paramRoot: 'question'
   urlRoot: '/question'
 
   defaults:
