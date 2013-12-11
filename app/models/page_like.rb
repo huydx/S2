@@ -12,11 +12,11 @@ class PageLike
   end
 
   def like_num
-    $redis.get like_key_name || 0
+    ($redis.get like_key_name).to_i
   end
 
   def dislike_num
-    $redis.get dislike_key_name || 0
+    ($redis.get dislike_key_name).to_i
   end
   
   def increment_like_num
