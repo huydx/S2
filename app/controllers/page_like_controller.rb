@@ -1,4 +1,5 @@
 class PageLikeController < ApplicationController
+  protect_from_forgery except: [:create]
   layout false
 
   def index
