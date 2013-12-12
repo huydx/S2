@@ -21,7 +21,6 @@ class PageLikeController < ApplicationController
       render nothing: true, status: 422
     end
   rescue Exception=>e
-    p e
     render nothing: true, status: 500
   end
 end
