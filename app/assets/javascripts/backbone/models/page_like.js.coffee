@@ -10,7 +10,7 @@ class S2.Models.PageLike extends Backbone.Model
     if window.player?
       page = window.player.currentPage
     else
-      page = 0
+      page = 1
     return page
 
   defaults:
