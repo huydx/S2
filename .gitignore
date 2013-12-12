@@ -17,6 +17,7 @@ rerun.txt
 pickle-email-*.html
 .project
 /config/database.yml
+/config/database.yml.sample
 *.DS_Store
 /public/assets/
 

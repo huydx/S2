@@ -13,12 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20131201021307) do
 
-  create_table "abcs", force: true do |t|
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "answers", force: true do |t|
     t.integer  "question_id"
     t.string   "content"
@@ -52,7 +46,7 @@ ActiveRecord::Schema.define(version: 20131201021307) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["username"], name: "index_users_on_username", unique: true
 
 end
