@@ -10,8 +10,8 @@ class PageLikeController < ApplicationController
   def create
     page_like = PageLike.new(params.merge({"userName" => username}))
     if page_like.able_to_save?
-      page_like.like if params["likeAction"]
-      page_like.dislike if params["dislikeAction"]
+      page_like.like if params["likeAction"].to_i == 1
+      page_like.dislike if params["dislikeAction"].to_i == 1
 
       channel = make_channel(params['slideId'] || params['slide_id'])
       notify_payload = make_notify_payload({has_like: true})
