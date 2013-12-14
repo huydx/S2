@@ -52,7 +52,7 @@ class Subscriber
       @drawer.draw (queue[3] * @drawer.canvasWidth), (@drawer.canvasHeight * (1 - queue[2])), "drag"
       @drawer.draw (queue[5] * @drawer.canvasWidth), (@drawer.canvasHeight * (1 - queue[4])), "drag"
       @drawer.draw (queue[7] * @drawer.canvasWidth), (@drawer.canvasHeight * (1 - queue[6])), "drag"
-  
+
   addQuestion: (questionPayload) ->
     model = new S2.Models.Question(questionPayload)
     window.questionCollection.add(model)
@@ -62,9 +62,9 @@ class Subscriber
       @resetQuestionList()
     if notification.has_like
       @resetLikeBar()
-  
+
   resetQuestionList: ->
-    window.questionCollection.reset()
+    window.questionListView.empty()
     window.questionCollection.fetch()
 
   resetLikeBar: ->

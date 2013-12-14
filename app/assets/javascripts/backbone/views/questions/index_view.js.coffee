@@ -16,7 +16,10 @@ class S2.Views.Questions.IndexView extends Backbone.View
   addOne: (question) =>
     view = new S2.Views.Questions.QuestionView({model : question})
     @$el.append(view.render().el)
-  
+
+  empty: =>
+    @$el.html("")
+
   render: =>
     @$el.html(@template(questions: @options.questions.toJSON() ))
     @addAll()
