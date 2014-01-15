@@ -32,7 +32,6 @@ group :doc do
 end
 
 group :development do
-  gem 'debugger'
   gem "pry-rails"
   gem "pry"
   gem "pry-debugger"
